@@ -1,0 +1,1264 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass unbene
+\begin_preamble
+%%% PACOTES: FONTE  (VERIFICAR SE ESTÃO INSTALADOS)
+\usepackage[T1]{fontenc}
+%\usepackage[latin9]{inputenc}
+
+
+%%% PACOTES: GRAFICOS, TABELAS ETC
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{subfig}
+\usepackage{array}
+
+%%% PACOTES: ALGORITMOS
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+%%% PACOTES: OUTROS
+\usepackage{pdfpages}
+
+
+%%% PACOTES NECESSÁRIOS PELO TEMPLATE (JÁ INSTALADOS):
+%%% color, [usenames,dvipsnames,svgnames,table]{xcolor}
+%%% {eso-pic,graphicx}, mdframed, tcolorbox
+%%% times, geometry, import, ifthen, calc,{xstring,xifthen}
+
+
+
+
+
+
+
+
+%%###################%%###################
+%%################### 
+%%###################   NOVO AMBIENTE: laranote
+%%###################
+%%###################%%###################
+\newmdenv[
+  topline=false,
+  bottomline=false,
+  rightline=false,
+  leftline=false,
+  backgroundcolor=gray!15,
+  font=\small,
+    skipabove=\baselineskip,
+    skipbelow=\baselineskip,
+%  roundcorner=100mm,
+  leftmargin=10pt,
+  rightmargin=10pt,
+  innertopmargin=10pt,
+%  innerrightmargin=15pt,
+  innerbottommargin=10pt,
+%  linewidth = 3pt,
+%  linecolor=red!60!black!50,
+%    nobreak=false,
+]{laranote}
+
+
+
+
+
+
+
+
+
+
+%%###################%%###################
+%%################### 
+%%###################   NOVO AMBIENTE: Example
+%%###################
+%%###################%%###################
+\newtheoremstyle{myExamStyle}%(blank means default value)
+{}%Space above
+{}%Space below
+{}%Body font
+{}%Indent amount
+{\color{Maroon}\scshape\bfseries}%theorem head font
+{}%Punctuation after theorem head
+{.5em}%Space after theorem head
+{}%Theorem head spec
+
+%Define example with the new style
+\theoremstyle{myExamStyle}
+\newtheorem{reexample}{Example}[chapter]
+
+\renewenvironment{example}
+{%begin{<environment_name>} is replaced with the contents between these first curly brackets
+\begin{tcolorbox} [
+breakable,
+boxsep=8pt,%distance from the border
+left=0pt,%distance from the left
+right=0pt, %distance from the right
+top=0pt,%distance from the top
+arc=0pt,%radius of round corners
+boxrule=1pt,%border thickness
+toprule=1pt,%top border thickness
+%bottomrule=1pt,
+colframe=Maroon,%Border color
+colback=White%Background color
+]
+\begin{reexample}
+}
+%The argument of <environment_name> is placed in between
+{%end{<environment_name>} is replaced with the contents between these second curly brackets
+\end{reexample}
+\end{tcolorbox}
+}
+
+
+
+
+%%###################%%###################
+%%################### 
+%%###################   NOVO AMBIENTE: Definition
+%%###################
+%%###################%%###################
+\newtheoremstyle{myDefinitionStyle}%(blank means default value)
+{}{}{}{}%Space above and below | body font | Indent amount
+{\color{Maroon!80!orange!80!black!80}\scshape\bfseries}%theorem head font
+{}{.5em}{}%Punctuation after theorem head | %Space after theorem head | %Theorem head spec
+
+%Define example with the new style
+\theoremstyle{myDefinitionStyle}
+\newtheorem{reDefinition}{Definition}[chapter]
+
+\let\origdescription\defn
+\let\newdescription\reDefinition
+\renewenvironment{defn}{%\stepcounter{defn}%
+\noindent%
+\begin{tcolorbox}[%width=4in,
+breakable,
+boxsep=8pt,
+left=0pt,
+right=0pt,
+top=2pt,
+arc=2pt,
+boxrule=0pt,toprule=2pt,bottomrule=2pt,
+colframe=gray!30!black!30,
+colback=gray!10!orange!5]
+\newdescription
+}
+{
+\end{tcolorbox}\ignorespacesafterend 
+ 
+\vspace{10pt} 
+ 
+}
+
+
+
+
+%%###################%%###################
+%%################### 
+%%###################   NEW-COMMANDS FOR THEOREM & LEMMA ENVIRONMENTS
+%%###################
+%%###################%%###################
+\newcommand\removenontitle[1]{%{#1}\ifx\tempa\empty
+%\if\relax\detokenize{#1}\relax vazio \else XX #1 \fi
+\ifthenelse{\equal{#1}{opt}}{}{#1}}
+
+
+% Verde original
+%\newcommand\corteoremafundo{gray!60!green!60}\newcommand\corteorematitle{black!95!green!70} 
+% Verde escuro
+\newcommand\corteoremafundo{black!80!green!70}\newcommand\corteorematitle{black!95!green!70} 
+% Marrom claro
+%\newcommand\corteoremafundo{Maroon!60!gray!60}\newcommand\corteorematitle{Maroon!80!orange!80!black!80}
+% Cor da numeracao capitulos
+%\newcommand\corteoremafundo{black!70!bananamania!70}\newcommand\corteorematitle{black!60!bananamania!95}
+
+
+\def\teoremaestilo{2} % SELECIONE ENTRE ESTILOS 1 e 2
+
+
+%%###################%%###################
+%%################### 
+%%###################   NOVO AMBIENTE: THEOREM
+%%###################
+%%###################%%###################
+
+%\newcommand{\testexyz}[1]{\textcolor{black}{\textbf{Theorem \thethm} \ \ \ifthenelse{\equal{#1}{x}}{}{#1}}}
+\newcommand{\newtheoremtitlemacro}[1]{\textcolor{black}{\textbf{Theorem \thethm} \ \ \removenontitle{#1}}}
+
+
+\newtheoremstyle{named}{}{}{}{}{\itshape}{ }{.0em}{\noindent \thmnote{#3's }}
+\theoremstyle{named}
+\newtheorem{theorem}{}[chapter] 
+ 
+\let\newteorema\theorem
+\renewenvironment{thm}{\newteorema}{}
+\let\origtheorem\thm 
+ 
+\renewenvironment{thm}[1][opt]{\addtocounter{thm}{+1}%\stepcounter{thm}%  
+\noindent%\centering\hspace{20pt}%\begin{minipage}[t]{0.90\linewidth}%
+\begin{tcolorbox}[%
+breakable,
+colback=gray!5!,
+colframe=\corteoremafundo,
+title={\ifthenelse{\equal{\teoremaestilo}{1}}{\newtheoremtitlemacro{#1}}{}}
+% 
+]% 
+\ifthenelse{\equal{\teoremaestilo}{1}}%
+{}%
+{\textcolor{\corteorematitle}{{\large \textbf{Theorem \thethm} \ \ \textbf{\textit{\removenontitle{#1}}}} }}%  
+\origtheorem
+}
+{\end{tcolorbox}%\end{minipage}
+\ignorespacesafterend
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%###################%%###################
+%%################### 
+%%###################   NOVO AMBIENTE: LEMMA
+%%###################
+%%###################%%###################
+\newtheoremstyle{myLemma}%(blank means default value)
+{}{}{}{}%Space above and below | body font | Indent amount
+{\color{Maroon!80!orange!80!black!80}\scshape\bfseries}%theorem head font
+{}{.5em}{}%Punctuation after theorem head | %Space after theorem head | %Theorem head spec
+
+%Define example with the new style
+\theoremstyle{myLemmaStyle}
+\newtheorem{reLemma}{Lemma}[chapter]
+
+\let\origlemma\lem
+\let\newlemma\reLemma
+\renewenvironment{lem}{%\stepcounter{defn}%
+\noindent%
+\begin{tcolorbox}[%width=4in,
+breakable,
+boxsep=8pt,
+left=0pt,
+right=0pt,
+top=2pt,
+arc=2pt,
+boxrule=0pt,toprule=2pt,bottomrule=2pt,
+colback=gray!5,
+colframe=\corteoremafundo]
+\newlemma
+}
+{
+\end{tcolorbox}\ignorespacesafterend 
+ 
+\vspace{10pt} 
+ 
+}
+\end_preamble
+\use_default_options true
+\begin_modules
+theorems-ams-bytype
+theorems-chap-bytype
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style 
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Este é um arquivo \SpecialChar LyX
+ template para ser utilizado em teses e dissertações realizada
+s na Faculdade de Tecnológia da Universidade de Brasília.
+\end_layout
+
+\begin_layout Plain Layout
+
+\emph on
+( This is a template \SpecialChar LyX
+ file for thesis and dissertations to be submitted
+ to the Technology Faculty from the University of Brasilia.
+ )
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+TEMPLATE (alpha version):
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+—> 4a Edição (LaTeX) Luis F.
+ C.
+ Figueredo, Fev., 2017
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Título do trabalho:
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+Template em LaTeX para dissertações do ENE:
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Versão em \SpecialChar LyX
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+No caso de haver outros autores (máximo 3), copie o texto abaixo para fora
+ da caixa 
+\begin_inset Quotes eld
+\end_inset
+
+Note
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Author
+Terceiro autor
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Author
+Margaret Hamilton
+\end_layout
+
+\begin_layout Author
+Minch Yoda
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Exemplo de outros graus possíveis.
+ Por favor, selecione estas outras opções (lembre-se de selecionar apenas
+ 1):
+\end_layout
+
+\begin_layout Grau desejado
+Doutor
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex GrauDesejado - arg 1
+status open
+
+\begin_layout Plain Layout
+Doutor em Engenharia Elétrica
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex GrauDesejado - arg 2
+status open
+
+\begin_layout Plain Layout
+TESE DE DOUTORADO
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 3
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex GrauDesejado - arg 3
+status open
+
+\begin_layout Plain Layout
+Engenharia de Sistemas Eletrônicos e Automação
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Grau desejado
+Mestre
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex GrauDesejado - arg 1
+status open
+
+\begin_layout Plain Layout
+Mestre em Engenharia Elétrica
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex GrauDesejado - arg 2
+status open
+
+\begin_layout Plain Layout
+DISSERTAÇÃO DE MESTRADO
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 3
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex GrauDesejado - arg 3
+status open
+
+\begin_layout Plain Layout
+Engenharia de Sistemas Eletrônicos e Automação
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Grau desejado
+Engenheiro
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex GrauDesejado - arg 1
+status open
+
+\begin_layout Plain Layout
+Engenheiro Mecatrônico
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex GrauDesejado - arg 2
+status open
+
+\begin_layout Plain Layout
+Trabalho de Graduação
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 3
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex GrauDesejado - arg 3
+status open
+
+\begin_layout Plain Layout
+Engenharia Mecatrônica
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Data
+2017
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Janeiro
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+01
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Título (extenso)
+Template em Latex para dissertações do ENE: Versão Lyx
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+LaTeX Template - LyX Version
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Para adicionar mais membros da banca: Após o último membro, crie uma nova
+ linha (enter) e vá na aba superior esquerda (abaixo de 
+\begin_inset Quotes eld
+\end_inset
+
+file
+\begin_inset Quotes erd
+\end_inset
+
+) e selecione 
+\begin_inset Quotes eld
+\end_inset
+
+membro da banca
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+Para deletar membros, apenas delete o item correspondente
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Orientador
+Strange, Dr.
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Who, Dr.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Senão houver co-orientador, deletar o item.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Membro da Banca
+Prof.
+ Dr.
+ Strange – ENE/Universidade de Brasília 
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Orientador
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Membro da Banca
+Prof.
+ Dr.
+ Jhon H.
+ Watson – Dep./Universidade 
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Membro Interno
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Membro da Banca
+Dr.
+ Evil – Dep./Universidade 
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Membro Externo
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Catalogo - Nome
+Hamilton, Margaret; Yoda, Minch,
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Hamilton, M., Yoda, M.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Catalogo - Info
+xi+100
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Publicacao
+status open
+
+\begin_layout Plain Layout
+PPGEA.TD-001/11
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Keywords
+status open
+
+\begin_layout Plain Layout
+Palavra 1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 3
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Keywords
+status open
+
+\begin_layout Plain Layout
+Palavra 2
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Keywords
+status open
+
+\begin_layout Plain Layout
+Palavra 3
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 5
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Keywords
+status open
+
+\begin_layout Plain Layout
+Palavra 4
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% DEDICATORIA: 
+\end_layout
+
+\begin_layout Plain Layout
+
+% Para adicionar dedicatoria escreva abaixo nos itens.
+ Para deletar a dedicatoria, apenas deixe em branco.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+% Texto primeiro autor 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+dedicatoriaautori{Dedicatória escrita pelo primeiro autor: 
+\backslash
+textsc{First Letter} FIRST letter do autor 1}
+\end_layout
+
+\begin_layout Plain Layout
+
+% Texto segundo autor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+dedicatoriaautorii{Dedicatória do autor 2}
+\end_layout
+
+\begin_layout Plain Layout
+
+% Texto terceiro autor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+dedicatoriaautoriii{Dedicatória do autor 3}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%AGRADECIMENTOS
+\end_layout
+
+\begin_layout Plain Layout
+
+% Texto primeiro autor 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+agradecimentosautori{Primeira página de agradecimentos} 
+\end_layout
+
+\begin_layout Plain Layout
+
+% Conteudo da segunda pagina (caso agradecimentos sejam muito extensos)
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+agradecimentosautorcont{ }
+\end_layout
+
+\begin_layout Plain Layout
+
+% Texto segundo autor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+agradecimentosautorii{}
+\end_layout
+
+\begin_layout Plain Layout
+
+% Texto terceiro autor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+agradecimentosautoriii{}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+.
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+.
+ .
+ .
+ .
+ .
+ .
+ .
+ .
+ .
+ .
+ .
+ .
+ .
+ .
+ .
+ .
+ .
+ .
+ .
+ .
+ .
+ NÃO APAGAR O FRONTMATTER 
+\end_layout
+
+\begin_layout Plain Layout
+.
+\end_layout
+
+\begin_layout Plain Layout
+* Deve ser chamado após todas as definições acima e as dedicatórias+agradeciment
+os
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Formatar FrontMatter
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "macros.lyx"
+
+\end_inset
+
+
+\begin_inset CommandInset include
+LatexCommand include
+filename "abstract.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+sumario
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+listadefiguras
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+listadetabelas
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+markboth{}{}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "symbols.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "notation.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%CORPO PRINCIPAL
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+mainmatter 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setcounter{page}{1} 
+\backslash
+pagestyle{plain} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "capt_01.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "capt_02.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part*
+APPENDIX
+\end_layout
+
+\begin_layout Standard
+\start_of_appendix
+\begin_inset CommandInset include
+LatexCommand include
+filename "appendix1.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%BIBLIOGRAPHY
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+addcontentsline{toc}{chapter}{BIBLIOGRAPHY} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "bibliography"
+options "chicago"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

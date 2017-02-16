@@ -1,0 +1,1037 @@
+%%
+%% This is file `ft4unb.sty'.
+%% 
+%% This file has been created by Prof. Geovany Araujo Borges.
+%% Updates: 
+%% - 2006/03/19: Version 1.0 released.
+%% - 2007/01/08: Package updated in order to support three co-authors. Proposed by Nathalie Pinheiro, André Calmon and Renan Utida)
+%% - 2007/04/09: Package incorporates a page for bibliographic information. Contributions from Nathalie Pinheiro, André Calmon and Renan Utida)
+%% - 2007/08/30: Modified by Alexandre Martins in order to accomplish the standards of FT.
+%% - 2008/08/04: Modified by Bruno Vilhena Adorno.
+%% - 2016/08/10: Modified by Luis F. C. Figueredo: FT4unb
+
+
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{ft4unb}[2007/04/09 v3.0]
+%%###################%%###################
+%%################### 
+%%###################   LATEX PACKAGES 
+%%###################
+%%###################%%###################
+
+
+%%% PACOTES: GRAFICOS, TABELAS, CORES
+%%%--------------------------------------------
+%\usepackage[usenames,dvipsnames]{color}
+\usepackage{color}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+
+%usa o pacote para manipulação de strings.
+%\usepackage{helvet}
+%\usepackage{soul}
+\usepackage{eso-pic,graphicx}
+\usepackage{mdframed}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\newsavebox{\bigleftbox}
+
+% Necessário inserir aqui para usar o \square na definição de provas
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+
+%%% PACOTES: GERENCIA DE ARQUIVOS E DADOS
+%%%--------------------------------------------
+\usepackage{times}
+\usepackage{geometry}
+\usepackage{import}
+\usepackage{ifthen}
+\usepackage{calc}
+\usepackage{xstring,xifthen}
+
+
+
+
+%% PREVENT THE USE OF DEFAULT MAKETITLE
+\renewcommand\maketitle{}
+
+
+
+
+
+%Redefinindo os nomes das fontes para ficar no padrão de dissertações e teses da FT.
+\renewcommand{\large}{\fontsize{12}{15}}
+\renewcommand{\Large}{\fontsize{14}{17}}
+\renewcommand{\huge}{\fontsize{20}{24}}
+\renewcommand{\Huge}{\fontsize{25}{30}}
+
+
+%%###################%%###################
+%%################### 
+%%###################   DADOS DO TRABALHO
+%%###################
+%%###################%%###################
+
+% COMANDOS: GRAU
+\newcommand{\grau}[4]{%
+    \def\graunome{#1}%
+    \def\graunomeshort{#4}%
+    \def\tipodemonografianome{#2}
+    \def\engenharia{#3}
+}%
+\providecommand\graunomeshort{Engenheiro}\providecommand\graunome{Engenheiro Mecatrônico}
+\providecommand\tipodemonografianome{Trabalho de Graduação}\providecommand\engenharia{Engenharia Mecatrônica}
+
+
+% COMANDOS: AUTORES
+%\newcommand{\autori}[1]{\def\autorinome{#1}}
+%\newcommand{\autorii}[1]{\def\autoriinome{#1}}
+%\newcommand{\autoriii}[1]{\def\autoriiinome{#1}}
+
+
+% COMANDOS: BANCA
+\newcommand\autorinome{}\newcommand\autoriinome{}\newcommand\autoriiinome{}
+\newcommand{\autores}[1]{
+	\ifthenelse{\equal{\autorinome}{}}%  --> Testa primeiro autor
+		{\renewcommand\autorinome{#1}}%        TRUE => Define primeiro autor
+		{\ifthenelse{\equal{\autoriinome}{}}%  FALSE=> Testa segundo autor
+			{\renewcommand\autoriinome{#1}}%       TRUE => Define segundo autor
+			{\renewcommand\autoriiinome{#1}}% 	   FALSE=> Define terceiro autor (pode ser redefinido varias vezes)
+		}
+% 
+	% \ifdefined\autorinome  
+		% \ifdefined\autoriinome  
+			% \ifdefined\autoriiinome 
+			% \else
+				% \newcommand{\autoriiinome}{#1}
+				%\newcommand{\autoriiinomereduzido}{#2}
+			% \fi
+		% \else
+			% \newcommand{\autoriinome}{#1}
+			%\newcommand{\autoriinomereduzido}{#2}
+		% \fi
+	% \else 
+		% \def\autorinome{#1}
+		%\newcommand{\autorinomereduzido}{#2}
+	% \fi
+}
+% \def\autorinome{nome 1}
+% \def\autoriinome{nome 2}\def\autoriiinome{}
+% \providecommand\autorinome{} 
+%\providecommand\autoriinome{}\providecommand\autoriiinome{}
+
+
+
+
+
+
+\newcommand{\catalogonome}[2][]{\def\autorcatalogonome{#2}\def\autorabreviadocatalogonome{#1}}
+\providecommand\autorcatalogonome{}\providecommand\autorabreviadocatalogonome{}
+
+%\def\autorcatalogonome{
+%}
+
+
+% COMANDOS: TITULO
+\newcommand{\titulolinhas}[2][]{\def\titulolinhainome{#2}\def\titulolinhaiinome{#1}}
+\providecommand\titulolinhainome{}\providecommand\titulolinhaiinome{}
+
+\newcommand{\titulo}{\titulolinhainome \titulolinhaiinome}
+\newcommand{\titlesizeSMALL}{80}\newcommand{\titlesizeREGULAR}{150}\newcommand{\titlesizeLARGE}{250}
+
+
+\newcommand{\titulolinguas}[2]{\def\tituloinglesnome{#2}\def\tituloportuguesnome{#1}}
+\newcommand{\titulofrances}[1]{\def\titulofrancesnome{#1}}
+\providecommand\tituloinglesnome{}\providecommand\tituloportuguesnome{}
+
+
+%
+
+% COMANDOS: BANCA
+\newcommand{\membrodabanca}[2][]{
+	\ifdefined\membrodabancainome  
+		\ifdefined\membrodabancaiinome  
+			\ifdefined\membrodabancaiiinome 
+				\ifdefined\membrodabancaivnome 
+					\ifdefined\membrodabancavnome 
+					\else
+						\newcommand{\membrodabancavnome}{#2}
+						\newcommand{\membrodabancavfuncaonome}{#1}
+					\fi
+				\else
+					\newcommand{\membrodabancaivnome}{#2}
+					\newcommand{\membrodabancaivfuncaonome}{#1}
+				\fi
+			\else
+				\newcommand{\membrodabancaiiinome}{#2}
+				\newcommand{\membrodabancaiiifuncaonome}{#1}
+			\fi
+		\else
+			\newcommand{\membrodabancaiinome}{#2}
+			\newcommand{\membrodabancaiifuncaonome}{#1}
+		\fi
+	\else 
+		\newcommand{\membrodabancainome}{#2}
+		\newcommand{\membrodabancaifuncaonome}{#1}
+	\fi
+}
+\newcommand{\orientador}[2][]{\def\orientadornome{#2}\def\corientadornome{#1}}
+\providecommand{\orientadornome}{}
+\providecommand{\corientadornome}{}
+
+
+
+% COMANDOS: DATA
+\newcommand{\datainfo}[3]{%
+    \def\mesnome{#1}\def\dianome{#2}\def\anonome{#3}
+}%
+\providecommand\mesnome{Janeiro}\providecommand\dianome{01}\providecommand\anonome{2017}
+
+
+%Comandos para a parte de ficha catalográfica
+\newcommand{\catalogoinfo}[6]{
+	\def\publicacaonome{#1}%
+	\def\numeropaginascatalogonome{#6}%
+	\def\palavraschavecatalogoinome{#2}\def\palavraschavecatalogoiinome{#3}\def\palavraschavecatalogoiiinome{#4}\def\palavraschavecatalogoivnome{#5}	
+}
+\providecommand\numeropaginascatalogonome{}
+\providecommand\palavraschavecatalogoinome{}\providecommand\palavraschavecatalogoiinome{}
+\providecommand\palavraschavecatalogoiiinome{}\providecommand\palavraschavecatalogoivnome{}
+\providecommand\publicacaonome{}
+
+
+
+
+%%###################%%###################
+%%################### 
+%%###################   NOVAS CORES (http://latexcolor.com/)
+%%###################
+%%###################%%###################
+\definecolor{almond}{rgb}{0.94, 0.87, 0.8}%
+\definecolor{antiquebrass}{rgb}{0.8, 0.58, 0.46}%
+\definecolor{antiquewhite}{rgb}{0.98, 0.92, 0.84}%
+\definecolor{applegreen}{rgb}{0.55, 0.71, 0.0}%
+\definecolor{apricot}{rgb}{0.98, 0.81, 0.69}%
+\definecolor{armygreen}{rgb}{0.29, 0.33, 0.13}%
+\definecolor{arylideyellow}{rgb}{0.91, 0.84, 0.42}%
+\definecolor{asparagus}{rgb}{0.53, 0.66, 0.42}%
+\definecolor{atomictangerine}{rgb}{1.0, 0.6, 0.4}%
+\definecolor{bananamania}{rgb}{0.98, 0.91, 0.71}%
+
+
+
+
+%%###################%%###################
+%%################### 
+%%###################   FUNÇÕES ESPECIFICAS
+%%###################
+%%###################%%###################
+\newcommand{\gettitulosize}{\StrLen{\titulo}[\titulosize]\titulosize}
+
+
+\newcommand{\placetextbox}[3]{% \placetextbox{<horizontal pos>}{<vertical pos>}{<stuff>}
+  \setbox0=\hbox{#3}% Put <stuff> in a box
+  \AddToShipoutPictureFG*{% Add <stuff> to current page foreground
+    \put(\LenToUnit{#1\paperwidth},\LenToUnit{#2\paperheight}){\vtop{{\null}\makebox[0pt][c]{#3}}}%
+  }%
+}%
+\newcommand{\folhatitulo}{}
+\newcommand{\capaassinaturas}{}
+\newcommand{\fichacatalografica}{}
+
+
+
+
+
+%%###################%%###################
+%%################### 
+%%###################   CAPA
+%%###################
+%%###################%%###################
+\newcommand{\capaprincipal}
+{
+\begin{titlepage}
+\AddToShipoutPicture*{\BackgroundPicture{figs/capa_fundo_ft3}{21.6cm}}
+\begin{center}
+\vspace*{9.5cm}
+
+\StrLen{\titulo}[\titulosize]
+\ifthenelse{\titulosize > \titlesizeSMALL}{%
+	\ifthenelse{\titulosize > \titlesizeREGULAR}{%
+			\ifthenelse{\titulosize > \titlesizeLARGE}{\vspace*{-40pt}}{\vspace*{-20pt}}%
+	}{}%
+}{}%
+{\noindent\setfonttimes\Large\bf {\MakeUppercase{\titulolinhainome}}}\\
+{\noindent\setfonttimes\Large\bf \ifthenelse{\equal{\titulolinhaiinome}{}}{\vspace*{7pt}}{\MakeUppercase{\titulolinhaiinome}}}\\
+\vspace*{1.75cm}
+\begin{tabular}{c}
+{\setfonttimes\large\bf\MakeUppercase{\autorinome}\vspace*{1.5mm}}
+\end{tabular}\\
+\ifthenelse{\equal{\autoriinome}{}}{\vspace*{6mm}}{
+	\begin{tabular}{c}
+	{\setfonttimes\large\bf\MakeUppercase{\autoriinome}\vspace*{1.5mm}}
+	\end{tabular}\\}
+\ifthenelse{\equal{\autoriiinome}{}}{\vspace*{6mm}}{
+	\begin{tabular}{c}
+	{\setfonttimes\large\bf\MakeUppercase{\autoriiinome}\vspace*{3mm}}
+	\end{tabular}\\}
+% \vspace*{9pt}
+\vspace*{8mm}
+{\large\bf \MakeUppercase{\tipodemonografianome} EM \MakeUppercase{\engenharia}}\\
+\vspace*{2pt}
+{\large\bf DEPARTAMENTO DE ENGENHARIA EL\'{E}TRICA}\\
+\placetextbox{0.51}{0.17}{{\setfonttimes\huge\bf FACULDADE DE TECNOLOGIA}}
+\placetextbox{0.515}{0.12}{{\setfonttimes\Huge\bf UNIVERSIDADE DE BRAS\'{I}LIA}}
+\end{center}
+\end{titlepage}
+\newpage \thispagestyle{empty} \
+
+
+
+
+%%###################%%###################
+%%################### 
+%%###################   FOLHA TITULO
+%%###################
+%%###################%%###################
+% \newcommand{\folhatitulo}{
+\begin{titlepage}
+\begin{center}
+
+{\fontsize{11.5}{1.2}\selectfont UNIVERSIDADE DE BRAS\'{I}LIA}\\
+\vspace*{3.5pt}
+{\fontsize{11.5}{1.2}\selectfont FACULDADE DE TECNOLOGIA}\\
+\vspace*{3.5pt}
+{\fontsize{11.5}{1.2}\selectfont DEPARTAMENTO DE ENGENHARIA EL\'{E}TRICA}\\
+
+\vspace*{2.25cm}
+
+{\noindent\setfonttimes\Large\bf {\MakeUppercase{\tituloinglesnome}}}\\
+% {\noindent\setfonttimes\Large\bf \ifthenelse{\equal{\titulolinhaiinome}{}}{\vspace*{7pt}}{\MakeUppercase{\titulolinhaiinome}}}\\% 
+\vspace*{30pt}
+{\noindent\setfonttimes\Large\bf\MakeUppercase{\tituloportuguesnome}}\\
+
+\vspace*{2.5cm}
+
+{\setfonttimes\Large\bf\MakeUppercase{\autorinome}\vspace*{2mm}}\\
+\ifthenelse{\equal{\autoriinome}{}}{\vspace*{6mm}}{{\setfonttimes\Large\bf\MakeUppercase{\autoriinome}\vspace*{2mm}}\\}
+\ifthenelse{\equal{\autoriiinome}{}}{\vspace*{6mm}}{{\setfonttimes\Large\bf\MakeUppercase{\autoriiinome}\vspace*{2mm}}\\}
+
+\vspace*{1.75cm}
+
+\ifthenelse{\equal{\orientadornome}{}}{\vspace*{6mm}}{\setfonttimes\large\bf \MakeUppercase{Orientador: \orientadornome}\\}
+\ifthenelse{\equal{\corientadornome}{}}{\vspace*{6mm}}{\setfonttimes\large\bf \MakeUppercase{Coorientador: \corientadornome}\\}
+\vspace*{1.0cm}
+
+\end{center}
+
+\StrLen{\engenharia}[\titulosize]
+\ifthenelse{\titulosize > 35}{\newcommand{\sizeengtable}{0.7}}{\newcommand{\sizeengtable}{0.55}}
+
+\placetextbox{0.5}{0.26}{%
+	\begin{tabular}{>{\centering}p{\sizeengtable\columnwidth}}
+		\fontsize{11.5}{1.2}\selectfont \MakeUppercase{\tipodemonografianome \space EM \MakeUppercase{\engenharia}}
+	\end{tabular}%
+}
+
+\ifthenelse{\equal{\publicacaonome}{}}{}{
+\placetextbox{0.404}{0.142}{
+    \begin{tabular}{>{\raggedright}p{0.7\columnwidth}}
+		\fontsize{11.5}{1.2}\selectfont PUBLICA\c{C}\~{A}O: \publicacaonome%
+	\end{tabular}%	
+}
+}
+% \placetextbox{0.2842}{0.116}{\fontsize{11.5}{1.2}\selectfont BRAS\'{I}LIA/DF: \MakeUppercase{\mesnome} \space - \anonome}	
+\placetextbox{0.404}{0.1165}{
+    \begin{tabular}{>{\raggedright}p{0.7\columnwidth}}
+		\fontsize{11.5}{1.2}\selectfont BRAS\'{I}LIA/DF: \MakeUppercase{\mesnome} \space- \anonome
+	\end{tabular}%		
+}	
+
+
+\end{titlepage}
+% }
+
+
+
+%%###################%%###################
+%%################### 
+%%###################   CONTRA CAPA
+%%###################
+%%###################%%###################
+% \newcommand{\capaassinaturas}{
+\providecommand\membrodabancainome{Prof. Nome, Dept/Univ}\providecommand\membrodabancaifuncaonome{}
+\providecommand\membrodabancaiinome{}\providecommand\membrodabancaiifuncaonome{}
+\providecommand\membrodabancaiiinome{}\providecommand\membrodabancaiiifuncaonome{}
+\providecommand\membrodabancaivnome{}\providecommand\membrodabancaivfuncaonome{}
+\providecommand\membrodabancavnome{}\providecommand\membrodabancavfuncaonome{}
+% 
+\begin{titlepage}
+\begin{center}
+{\setfonttimes\Large\bf UNIVERSIDADE DE BRAS\'{I}LIA}\\
+{\setfonttimes\Large\bf FACULDADE DE TECNOLOGIA}\\
+{\setfonttimes\Large\bf DEPARTAMENTO DE ENGENHARIA EL\'{E}TRICA}\\
+\vspace*{2cm}
+{\noindent\setfonttimes\Large\bf {\MakeUppercase{\titulolinhainome}}}\\
+{\noindent\setfonttimes\Large\bf \ifthenelse{\equal{\titulolinhaiinome}{}}{\vspace*{7pt}}{\MakeUppercase{\titulolinhaiinome}}}\\% 
+\vspace{0.5cm}
+{\setfonttimes\Large\bf\MakeUppercase{\autorinome}\vspace*{2mm}}\\
+\ifthenelse{\equal{\autoriinome}{}}{\vspace*{6mm}}{{\setfonttimes\Large\bf\MakeUppercase{\autoriinome}\vspace*{2mm}}\\}
+\ifthenelse{\equal{\autoriiinome}{}}{\vspace*{6mm}}{{\setfonttimes\Large\bf\MakeUppercase{\autoriiinome}\vspace*{2mm}}\\}
+\end{center}
+
+\vspace{0.0cm}
+{\setfonttimes\bf\setlength{\parindent}{0pt}\MakeUppercase{\tipodemonografianome} ~SUBMETIDA AO DEPARTAMENTO DE ENGENHARIA EL\'{E}TRICA DA FACULDADE DE TECNOLOGIA DA UNIVERSIDADE DE BRAS\'{I}LIA COMO PARTE DOS REQUISITOS NECESS\'{A}RIOS PARA A OBTEN\c{C}\~{A}O DO GRAU DE \MakeUppercase{\graunome}.
+}\\
+
+{\setfonttimes\large\bf \flushleft{APROVADA POR:}}\\
+\flushleft
+{	
+	{\small	\bf			
+		\ifthenelse{\equal{\membrodabancainome}{}}{}{\small --------------------------------------------------------------------------\\ \membrodabancainome  \\}
+		\ifthenelse{\equal{\membrodabancainome}{}}{}{\small(\membrodabancaifuncaonome) \\ } 
+		
+ 		\ifthenelse{\equal{\membrodabancaiinome}{}}{}{\small \vspace{5mm}
+ 		--------------------------------------------------------------------------\\ \membrodabancaiinome \\} 
+ 		\ifthenelse{\equal{\membrodabancaiinome}{}}{}{\small\membrodabancaiifuncaonome  \\ }
+	
+		\ifthenelse{\equal{\membrodabancaiiinome}{}}{}{\small \vspace{5mm}
+		--------------------------------------------------------------------------\\\membrodabancaiiinome \\} 
+		\ifthenelse{\equal{\membrodabancaiiinome}{}}{}{\small\membrodabancaiiifuncaonome \\} 
+		
+		\ifthenelse{\equal{\membrodabancaivnome}{}}{ }{\small\vspace{5mm}
+		--------------------------------------------------------------------------\\ \membrodabancaivnome  \\} 
+		\ifthenelse{\equal{\membrodabancaivnome}{}}{}{\small\membrodabancaivfuncaonome  \\ } 
+		
+		\ifthenelse{\equal{\membrodabancavnome}{}}{}{\small\vspace{5mm}
+		--------------------------------------------------------------------------\\ \membrodabancavnome \\} 
+		\ifthenelse{\equal{\membrodabancavnome}{}}{}{\small\membrodabancavfuncaonome \\}  
+	}
+		\vspace{9mm}
+		{\bf\MakeUppercase{Bras\'{i}lia, \dianome\ de\ \mesnome\ de \anonome}.}
+}
+\end{titlepage}
+% }
+
+
+
+
+
+
+
+%Sugestão: utilizar um pacote de manipulação de strings, como o stringstrings (tem no CTAN).
+
+%%###################%%###################
+%%################### 
+%%###################   FICHA CATALOGRÁFICA
+%%###################
+%%###################%%###################
+% \newcommand{\fichacatalografica}
+% {	
+	\def\titulocatalogonome{\titulolinhainome \titulolinhaiinome}
+	\begin{titlepage}
+	{
+		\flushleft{\textbf{FICHA CATALOGR\'{A}FICA}}\\
+		\vspace{3mm}
+		\fbox{
+ 		\parbox{\linewidth}{
+		\MakeUppercase{\autorcatalogonome}\\
+		\titulocatalogonome\ [Distrito Federal] \anonome.\\
+		\numeropaginascatalogonome~p., 210 x 297 mm (ENE/FT/UnB, \graunomeshort, \engenharia, \anonome).\\
+		\tipodemonografianome~-- Universidade de Bras\'{i}lia, Faculdade de Tecnologia.\\
+		Departamento de Engenharia El\'{e}trica\\
+		\begin{tabular}{lll}
+		1. \palavraschavecatalogoinome & \hspace{4cm} &  2. \palavraschavecatalogoiinome \hspace{2cm} \\
+		3. \palavraschavecatalogoiiinome & \hspace{4cm} & 4. \palavraschavecatalogoivnome \hspace{2cm} \\
+		I. ENE/FT/UnB           &  \hspace{4cm}    &   II. T\'{i}tulo (s\'{e}rie)\hspace{2cm}
+		\end{tabular}
+		}}\\
+
+		\vspace{5mm}
+		\textbf{REFER\^{E}NCIA BIBLIOGR\'{A}FICA}\\
+		%\MakeUppercase{\autorabreviadocatalogonome} (\anonome). \titulocatalogonome, Tese de doutorado em Engenharia El\'{e}trica, Publica\c{c}\~{a}o \publicacaonome, Departamento de Engenharia El\'{e}trica, Universidade de Bras\'{i}lia, Bras\'{i}lia, DF, \numeropaginascatalogonome.
+		\MakeUppercase{\autorabreviadocatalogonome} (\anonome). \titulocatalogonome, \tipodemonografianome, Publica\c{c}\~{a}o \publicacaonome, Departamento de Engenharia El\'{e}trica, Universidade de Bras\'{i}lia, Bras\'{i}lia, DF, \numeropaginascatalogonome.
+		\\
+		\vspace{5mm}
+		\textbf{CESS\~{A}O DE DIREITOS}\\
+		AUTOR: \autorinome\\
+		T\'{I}TULO: \titulocatalogonome.\\
+		GRAU: \graunomeshort~~~~~~~~~~~~~~ANO: \anonome\\
+		\vspace{5mm}
+		\'{E} concedida \`{a} Universidade de Bras\'{i}lia permiss\~{a}o para reproduzir c\'{o}pias desta \MakeLowercase{\tipodemonografianome} e para emprestar ou vender tais c\'{o}pias somente para prop\'{o}sitos acad\^{e}micos e cient\'{i}ficos. O autor reserva outros direitos de publica\c{c}\~{a}o e nenhuma parte dessa \MakeLowercase{\tipodemonografianome} pode ser reproduzida sem autoriza\c{c}\~{a}o por escrito do autor.
+		\vspace{5mm}
+
+		% \begin{center}
+		% \ifthenelse{\equal{\autoriinome}{}}%
+		% {\ifthenelse{\equal{\autoriiinome}{}}%
+		% 	{%
+		%   		\underline{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}\\
+		%   		\autorinome \\
+		% 	}{%
+		% 		\begin{tabular}{cc}%
+		% 	  		\underline{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}  &  \underline{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
+		% 		 \tabularnewline			  		
+		% 	  		\autorinome  & \autoriiinome				
+		% 		\end{tabular}		
+		% 	}
+		% }
+		% {\ifthenelse{\equal{\autoriiinome}{}}%
+		% 	{%
+		% 		\begin{tabular}{cc}%
+		% 	  		\underline{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}  &  \underline{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
+		% 		 \tabularnewline			  		
+		% 	  		\autorinome  & \autoriinome				
+		% 		\end{tabular}	
+		% 	}{%
+		% 		\begin{tabular}{cc}%
+		% 	  		\underline{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}  &  \underline{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
+		% 		 \tabularnewline			  		
+		% 	  		\autorinome  & \autoriinome				
+		% 		\end{tabular}	\vspace*{30pt} \\
+
+		%   		\underline{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}\\
+		%   		\autoriiinome \\
+		% 	}
+		% }
+		% \vspace{10pt}	
+		% \begin{tabular}{>{\centering}p{0.8\columnwidth}}
+		% 		Departamento de Eng. El\'{e}trica (ENE) - Faculdade de Tecnol\'{o}gia\tabularnewline
+		% 		Universidade de Bras\'{i}lia (UnB), Campus Darcy Ribeiro\tabularnewline
+		% 		CEP 70919-970 - Bras\'{i}lia - DF - Brasil 	
+		% \end{tabular}%
+		% \end{center}
+
+
+		\begin{flushleft}
+  		\underline{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}\\
+  		\autorinome \\
+		\ifthenelse{\equal{\autoriinome}{}}%
+		{\ifthenelse{\equal{\autoriiinome}{}}{}{%
+				\vspace*{3pt} \ \\
+		  		\underline{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}\\
+		  		\autoriiinome \\
+			}
+		}{\ifthenelse{\equal{\autoriiinome}{}}%
+			{%
+				\vspace*{3pt} \ \\
+		  		\underline{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}\\
+		  		\autoriinome \\
+			}{%
+				\vspace*{3pt}  \ \\
+		  		\underline{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}\\
+		  		\autoriinome \\
+				\vspace*{3pt} \ \\
+		  		\underline{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}\\
+		  		\autoriiinome \\
+			}
+		}
+		\vspace{10pt}	
+		Departamento de Eng. El\'{e}trica (ENE) - FT\\
+		Universidade de Bras\'{i}lia (UnB)\\
+		Campus Darcy Ribeiro\\
+		CEP 70919-970 - Bras\'{i}lia - DF - Brasil 	
+		\end{flushleft}
+
+
+
+
+	}
+	\end{titlepage}	
+}
+
+
+%%###################%%###################
+%%################### 
+%%###################   DEDICATORIA
+%%###################
+%%###################%%###################
+\newcommand{\dedicatoriaautori}[1]{\def\dedicatoriaautorinome{#1}}
+\newcommand{\dedicatoriaautorii}[1]{\def\dedicatoriaautoriinome{#1}}
+\newcommand{\dedicatoriaautoriii}[1]{\def\dedicatoriaautoriiinome{#1}}
+
+%\newcommand{\dedicatorias}[3][]{\def\dedicatoriaautorinome{#2}\def\dedicatoriaautoriinome{#1}\def\dedicatoriaautoriiinome{#3}}
+%\newcommand{\dedicatorias}[3][]{ USER: #2 #1 }
+
+%\def\dedicatoriaautorinome{a}%\def\dedicatoriaautoriinome{b}%\def\dedicatoriaautoriiinome{c}
+\providecommand\dedicatoriaautorinome{}\providecommand\dedicatoriaautoriinome{}\providecommand\dedicatoriaautoriiinome{}
+
+
+\newcommand{\dedicatoria}{
+\begin{titlepage}
+\begin{center}
+\vspace*{\fill}
+%\begin{flushright}
+%\large
+%\ifthenelse{\equal{\autoriinome}{}}{
+%	\ifthenelse{\equal{\autoriiinome}{}}
+%		{\setfonttimes\bf Dedicatï¿œria\space\space\space\space}
+%		{\setfonttimes\bf Dedicatï¿œrias}}
+%	{\setfonttimes\bf Dedicatï¿œrias} 
+%\end{flushright}
+\begin{flushright}
+	\ifthenelse{\equal{\autoriinome}{}}{
+		%\begin{tabular}{p{2.90\textwidth}}
+		\begin{tabular}{p{0.4\textwidth}}
+			\ifthenelse{\equal{\dedicatoriaautorinome}{}}{ \\ }{
+				\textit{\dedicatoriaautorinome}\\
+			}	
+			\\
+		%\raggedleft\setfonttimes\textit{\autorinome}
+		\end{tabular}
+	}{
+	\ifthenelse{\equal{\autoriiinome}{}}{
+		\begin{tabular}{p{0.45\textwidth}p{0.01\textwidth}p{0.45\textwidth}}
+			\ifthenelse{\equal{\dedicatoriaautorinome}{}}{}{\setfonttimes\textit{\dedicatoriaautorinome}}	& &
+			\ifthenelse{\equal{\dedicatoriaautoriinome}{}}{}{\setfonttimes\textit{\dedicatoriaautoriinome}}
+		\end{tabular}
+		\begin{tabular}{p{0.45\textwidth}p{0.01\textwidth}p{0.45\textwidth}}
+		& \\
+			\ifthenelse{\equal{\dedicatoriaautorinome}{}}{}{\raggedleft\setfonttimes\textit{\autorinome}}	& &
+			\ifthenelse{\equal{\dedicatoriaautoriinome}{}}{}{\raggedleft\setfonttimes\textit{\autoriinome}}		
+		\end{tabular}
+	}{	
+		\begin{tabular}{p{0.45\textwidth}p{0.01\textwidth}p{0.45\textwidth}}
+		 	& \\
+			& & \ifthenelse{\equal{\dedicatoriaautorinome}{}}{}{\setfonttimes\textit{\dedicatoriaautorinome}}
+		\end{tabular}
+		\begin{tabular}{p{0.45\textwidth}p{0.01\textwidth}p{0.45\textwidth}}
+			& \\
+			& & \ifthenelse{\equal{\dedicatoriaautorinome}{}}{}{\raggedleft\setfonttimes\textit{\autorinome}}
+		\end{tabular}
+		\begin{tabular}{p{0.45\textwidth}p{0.01\textwidth}p{0.45\textwidth}}
+			& \\
+			& & \ifthenelse{\equal{\dedicatoriaautoriinome}{}}{}{\setfonttimes\textit{\dedicatoriaautoriinome}}
+		\end{tabular}
+		\begin{tabular}{p{0.45\textwidth}p{0.01\textwidth}p{0.45\textwidth}}
+			& \\
+			& & \ifthenelse{\equal{\dedicatoriaautoriinome}{}}{}{\raggedleft\setfonttimes\textit{\autoriinome}}
+		\end{tabular}
+		\begin{tabular}{p{0.45\textwidth}p{0.01\textwidth}p{0.45\textwidth}}
+			& \\
+			& & \ifthenelse{\equal{\dedicatoriaautoriiinome}{}}{}{\setfonttimes\textit{\dedicatoriaautoriiinome}}
+		\end{tabular}
+		\begin{tabular}{p{0.45\textwidth}p{0.01\textwidth}p{0.45\textwidth}}
+			& \\
+			& & \ifthenelse{\equal{\dedicatoriaautoriiinome}{}}{}{\raggedleft\setfonttimes\textit{\autoriiinome}}
+		\end{tabular}
+		
+	}
+	}
+\end{flushright}
+\vspace*{2cm}
+\end{center}
+\end{titlepage}
+}
+
+
+
+
+%%###################%%###################
+%%################### 
+%%###################   AGRADECIMENTOS  
+%%###################      (chama a função \dedicatoria)
+%%###################
+%%###################%%###################
+\newcommand{\agradecimentosautori}[1]{\def\agradecimentosautorinome{#1}}
+\newcommand{\agradecimentosautorcont}[1]{\def\agradecimentosautorcontnome{#1}}
+\newcommand{\agradecimentosautorii}[1]{\def\agradecimentosautoriinome{#1}}
+\newcommand{\agradecimentosautoriii}[1]{\def\agradecimentosautoriiinome{#1}}
+
+
+\newcommand{\agradecimentos}{
+
+\dedicatoria
+
+\begin{titlepage}
+\pagenumbering{gobble}
+\begin{flushleft}
+%\large\setfonttimes\bf\MakeUppercase{Agradecimentos}
+\large\setfonttimes\bf\MakeUppercase{Acknowledgments}
+\end{flushleft}
+\begin{center}
+	\vspace*{1cm}
+	\begin{tabular}{p{0.9\textwidth}}
+		\setfonttimes\textit{\agradecimentosautorinome}\\
+	  \\
+  	%\raggedleft\setfonttimes\textit{\autorinome}\\
+	\end{tabular}
+
+	\begin{tabular}{p{0.9\textwidth}}
+		\setfonttimes\textit{\agradecimentosautorcontnome}\\
+	  \\
+  	%\raggedleft\setfonttimes\textit{\autorinome}\\
+	\end{tabular}
+	\vspace*{1cm}
+	\ifthenelse{\equal{\autoriinome}{}}{}{
+	 	\begin{tabular}{p{0.9\textwidth}}
+	 		\setfonttimes\textit{\agradecimentosautoriinome}\\
+	   	\\
+	%   	\raggedleft\setfonttimes\textit{\autoriinome}\\
+	 	\end{tabular}
+	}
+	\vspace*{1cm}
+	\ifthenelse{\equal{\autoriiinome}{}}{}{
+	 	\begin{tabular}{p{0.9\textwidth}}
+	 		\setfonttimes\textit{\agradecimentosautoriiinome}\\
+	   	\\
+	%   	\raggedleft\setfonttimes\textit{\autoriiinome}\\
+	 	\end{tabular}
+	}
+\end{center}
+\end{titlepage}}
+
+
+
+
+
+%%###################%%###################
+%%################### 
+%%###################   FAZ A CAPA PRINCIPAL + AGRADECIMENTOS
+%%###################
+%%###################%%###################
+\newcommand{\runfrontend}%
+{
+	\capaprincipal		% FRONT END: [CAPA][BRANCO][FOLHA TITULO][CONTRA-CAPA][FICHA CATAL.]
+	\agradecimentos	    % Dedicatoria e Agradecimentos
+}
+
+
+
+%%###################%%###################
+%%################### 
+%%###################   CAPITULO - ABSTRACT
+%%###################
+%%###################%%###################
+%%% Resumos opcionais do início de cada capítulo
+\newcommand{\resumodocapitulo}[1]{
+\vspace*{-0.8cm}
+\begin{flushright}
+	\begin{tabular}{p{0.6\textwidth}}
+		\begin{small}\itshape{#1}\end{small}\\
+	\end{tabular}
+	\vspace*{-0.5cm}
+\end{flushright}
+}
+
+
+
+
+
+
+%%###################%%###################
+%%################### 
+%%###################   RESUMO
+%%###################
+%%###################%%###################
+%%% Cabeçalhos dos resumos:
+\newcommand{\resumo}[2]{
+%\begin{flushright}
+%\hrule
+%\vspace*{4mm}\large\bf\uppercase{#1} \\
+%\end{flushright}
+%{\normalsize\noindent#2}  
+%}
+\begin{titlepage}
+\ifthenelse{\equal{#1}{Resumo}}
+{
+	\begin{flushleft}
+		{\setfonttimes\Large\bf\noindent\MakeUppercase{#1}}
+	\end{flushleft}
+		{\setfonttimes\normalsize\noindent{\textbf{T\'{i}tulo:} \tituloportuguesnome}}\\
+		{\setfonttimes\normalsize{\textbf{Autor:} \autorinome}}\\
+		\ifthenelse{\equal{\autoriinome}{}}{}{\setfonttimes\normalsize{\textbf{Autor:} \autoriinome}\\}
+		\ifthenelse{\equal{\autoriiinome}{}}{}{\setfonttimes\normalsize{\textbf{Autor:} \autoriiinome}\\}
+		{\setfonttimes\normalsize{\textbf{Orientador:} \orientadornome}}\\
+		\ifthenelse{\equal{\corientadornome}{}}{}{\setfonttimes\normalsize{\textbf{Coorientador:} \corientadornome}\\}
+
+	{\normalsize\noindent#2}
+}
+{
+	\ifthenelse{\equal{#1}{Abstract}}	
+	{
+		\begin{flushleft}
+			{\setfonttimes\Large\bf\noindent\MakeUppercase{#1}}
+		\end{flushleft}
+ 		{\setfonttimes\normalsize\noindent{\textbf{Title:} \tituloinglesnome}}\\
+		{\setfonttimes\normalsize{\textbf{Author:} \autorinome}}\\
+		\ifthenelse{\equal{\autoriinome}{}}{}{\setfonttimes\normalsize{\textbf{Author:} \autoriinome}\\}
+		\ifthenelse{\equal{\autoriiinome}{}}{}{\setfonttimes\normalsize{\textbf{Author:} \autoriiinome}\\}
+		\ifthenelse{\equal{\orientadornome}{}}{}{\setfonttimes\normalsize{\textbf{Supervisor:} \orientadornome}\\}
+		\ifthenelse{\equal{\corientadornome}{}}{}{\setfonttimes\normalsize{\textbf{Co-Supervisor:} \corientadornome}\\}\\
+		% {\setfonttimes\normalsize{\textbf{Supervisor:} \orientadornome}\\}
+		% {\setfonttimes\normalsize{\textbf{Supervisor:} Prof. Jo\~{a}o Yoshiyuki Ishihara}}\\
+		% {\setfonttimes\normalsize{\textbf{Co-Supervisor:} Prof. Bruno Vilhena Adorno}}\\
+		
+		% 
+		% \ifthenelse{\equal{\mesnome}{janeiro}}{{\setfonttimes\normalsize\bf\noindent{Bras\'{i}lia, \dianome th January \anonome}}\\}{}
+		% \ifthenelse{\equal{\mesnome}{fevereiro}}{{\setfonttimes\normalsize\bf\noindent{Bras\'{i}lia, \dianome th February \anonome}}\\}{}
+		% \ifthenelse{\equal{\mesnome}{março}}{{\setfonttimes\normalsize\bf\noindent{Bras\'{i}lia, \dianome th  March \anonome}}\\}{}
+		% \ifthenelse{\equal{\mesnome}{abril}}{{\setfonttimes\normalsize\bf\noindent{Bras\'{i}lia, \dianome th  April \anonome}}\\}{}
+		% \ifthenelse{\equal{\mesnome}{maio}}{{\setfonttimes\normalsize\bf\noindent{Bras\'{i}lia, \dianome th May \anonome}}\\}{}
+		% \ifthenelse{\equal{\mesnome}{junho}}{{\setfonttimes\normalsize\bf\noindent{Bras\'{i}lia, \dianome th June \anonome}}\\}{}
+		% \ifthenelse{\equal{\mesnome}{julho}}{{\setfonttimes\normalsize\bf\noindent{Bras\'{i}lia, \dianome th July \anonome}}\\}{}
+		% \ifthenelse{\equal{\mesnome}{agosto}}{{\setfonttimes\normalsize\bf\noindent{Bras\'{i}lia, \dianome th August \anonome}}\\}{}
+ 	% 	\ifthenelse{\equal{\mesnome}{setembro}}{{\setfonttimes\normalsize\bf\noindent{Bras\'{i}lia, \dianome th\ September \anonome}}\\}{}
+ 	% 	\ifthenelse{\equal{\mesnome}{outubro}}{{\setfonttimes\normalsize\bf\noindent{Bras\'{i}lia, \dianome th October \anonome}}\\}{}
+		% \ifthenelse{\equal{\mesnome}{novembro}}{{\setfonttimes\normalsize\bf\noindent{Bras\'{i}lia, \dianome th November \anonome}}\\}{}
+		% \ifthenelse{\equal{\mesnome}{dezembro}}{{\setfonttimes\normalsize\bf\noindent{Bras\'{i}lia, \dianome th December \anonome}}\\}{}
+% 		\end{flushleft}
+		{\normalsize\noindent#2}
+	}
+	{\ifthenelse{\equal{#1}{Résumé}}
+	{
+		\begin{flushleft}
+			{\setfonttimes\large\bf\noindent\MakeUppercase{#1}}\\
+		\end{flushleft}
+		{\setfonttimes\normalsize\bf\noindent\MakeUppercase{\titulofrancesnome}}
+		\begin{flushleft}
+		{\setfonttimes\normalsize\bf{Auteur: \autorinome}}\\
+		\ifthenelse{\equal{\autoriinome}{}}{\vspace*{6mm}}{\setfonttimes\normalsize{\textbf{Auteur:} \autoriinome}\\}
+		\ifthenelse{\equal{\autoriiinome}{}}{\vspace*{6mm}}{\setfonttimes\normalsize{\textbf{Auteur:} \autoriiinome}\\}
+		{\setfonttimes\normalsize{\textbf{Encadrant:} \orientadornome}}\\
+		\ifthenelse{\equal{\corientadornome}{}}{\vspace*{6mm}}{\setfonttimes\normalsize{\textbf{Encadrant:} \corientadornome}\\}
+		% \vspace*{12pt}
+		\ifthenelse{\equal{\mesnome}{janeiro}}{{\setfonttimes\normalsize\bf\noindent{Bras\'{i}lia, janvier \anonome}}\\}{}
+		\ifthenelse{\equal{\mesnome}{fevereiro}}{{\setfonttimes\normalsize\bf\noindent{Bras\'{i}lia, f\'{e}vrier of \anonome}}\\}{}
+		\ifthenelse{\equal{\mesnome}{marï¿œo}}{{\setfonttimes\normalsize\bf\noindent{Bras\'{i}lia, mars \anonome}}\\}{}
+		\ifthenelse{\equal{\mesnome}{abril}}{{\setfonttimes\normalsize\bf\noindent{Bras\'{i}lia, avril \anonome}}\\}{}
+		\ifthenelse{\equal{\mesnome}{maio}}{{\setfonttimes\normalsize\bf\noindent{Bras\'{i}lia, mai \anonome}}\\}{}
+		\ifthenelse{\equal{\mesnome}{junho}}{{\setfonttimes\normalsize\bf\noindent{Bras\'{i}lia, juin \anonome}}\\}{}
+		\ifthenelse{\equal{\mesnome}{julho}}{{\setfonttimes\normalsize\bf\noindent{Bras\'{i}lia, juillet \anonome}}\\}{}
+		\ifthenelse{\equal{\mesnome}{agosto}}{{\setfonttimes\normalsize\bf\noindent{Bras\'{i}lia, ao\^{u}t \anonome}}\\}{}
+		\ifthenelse{\equal{\mesnome}{setembro}}{{\setfonttimes\normalsize\bf\noindent{Bras\'{i}lia, septembre \anonome}}\\}{}
+		\ifthenelse{\equal{\mesnome}{outubro}}{{\setfonttimes\normalsize\bf\noindent{Bras\'{i}lia, octobre \anonome}}\\}{}
+		\ifthenelse{\equal{\mesnome}{novembro}}{{\setfonttimes\normalsize\bf\noindent{Bras\'{i}lia, novembre \anonome}}\\}{}
+		\ifthenelse{\equal{\mesnome}{dezembro}}{{\setfonttimes\normalsize\bf\noindent{Bras\'{i}lia, decembre \anonome}}\\}{}
+		\end{flushleft}
+		{\normalsize\noindent#2}
+	}
+	{}}
+}
+\end{titlepage}
+}
+
+%%% Fontes:
+\newcommand{\setfontarial}{\renewcommand{\familydefault}{\sfdefault}\sffamily}
+\newcommand{\setfonttimes}{\renewcommand{\familydefault}{\rmdefault}\rmfamily}
+
+%%% Estilo dos capítulos, seções, sub-seções:
+\makeatletter
+%%%[ ALTERACOES FEITAS: 2014-12(DEC) POR LUIS FIGUEREDO ]
+%%%[ TAMANHO DAS FONTES DOS CAPITULOS/SECOES/SUB.. FORAM ALTERADAS]
+\newlength{\newfontsizeChapter}
+\LARGE\setlength{\newfontsizeChapter}{3.30pt * \real{\f@size}}
+% \newlength{\newfontsizeChapter}
+% \LARGE\setlength{\newfontsizeChapter}{2.15pt * \real{\f@size}}
+\newlength{\newfontsizeChapterText}
+\LARGE\setlength{\newfontsizeChapterText}{1.1pt * \real{\f@size}}
+%
+\newlength{\newfontsizeSection}\newlength{\newfontsizeSectionB}
+\Large\setlength{\newfontsizeSection}{1.0pt * \real{\f@size}}
+\setlength{\newfontsizeSectionB}{\newfontsizeSection * \real{1.2}}
+%
+\newlength{\newfontsizeSUBSection}\newlength{\newfontsizeSUBSectionB}
+\Large\setlength{\newfontsizeSUBSection}{0.9pt * \real{\f@size}}
+\setlength{\newfontsizeSUBSectionB}{\newfontsizeSUBSection * \real{1.2}}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\@makechapterhead}[1]{%
+  {\parindent \z@ \raggedright \setfonttimes\bfseries% 
+  		% OPCAO POS-DEFESA 1
+  		% \placetextbox{0.08}{0.96}{\textcolor{black!50!bananamania!95}{{\fontsize{\newfontsizeChapter}{12pt}\selectfont {  \thechapter}  }}}%
+		% \LARGE \space {\fontsize{\newfontsizeChapterText}{\newfontsizeChapterText}\selectfont\uppercase{#1}}\vspace{-10pt}\newline\textcolor{black!50!bananamania!95}{\rule[0.1ex]{1.5\columnwidth}{4pt}}\par                 
+  		% OPCAO POS-DEFESA 2
+  		\placetextbox{0.095}{0.925}{\textcolor{black!60!bananamania!95}{{\fontsize{\newfontsizeChapter}{12pt}\selectfont {  \thechapter}  }}}%
+		\LARGE \space {\fontsize{\newfontsizeChapterText}{\newfontsizeChapterText}\selectfont\uppercase{#1}}\vspace{-10pt}\newline\textcolor{black!60!bananamania!95}{\rule[0.1ex]{1.5\columnwidth}{4pt}}\par                 
+		% OPCAO DEFESA
+        %\hspace{-35pt}{\fontsize{\newfontsizeChapter}{12pt}\selectfont\bfseries \thechapter.}\LARGE \space {\fontsize{\newfontsizeChapterText}{\newfontsizeChapterText}\selectfont\uppercase{#1}}\vspace{-10pt}\newline\textcolor{black!50!bananamania!95}{\rule[0.1ex]{1.5\columnwidth}{4pt}}\par         
+    \vskip 20\p@
+  }
+}
+\renewcommand{\@makeschapterhead}[1]{%
+  {\parindent \z@ \raggedleft \setfonttimes\bfseries
+        \Large #1\newline\rule[0.5ex]{1\columnwidth}{1pt}\par 
+    \vskip 20\p@
+  }
+}
+\renewcommand{\section}{\@startsection{section}
+	{1} % nivel
+	{0em} % recuo
+	{30pt} % espaço antes
+	{12pt\setfonttimes\mdseries} % espaço após, com reformatação.
+	{\setfonttimes\bfseries\fontsize{\newfontsizeSection}{\newfontsizeSectionB}\selectfont \uppercase}} % formato da fonte
+
+\renewcommand{\subsection}{\@startsection{subsection}
+	{2} % nivel
+	{0em} % recuo
+	{18pt} % espaço antes
+	{6pt\setfonttimes\mdseries} % espaï¿œo apï¿œs, com reformataï¿œï¿œo.
+	{\setfonttimes\bfseries\fontsize{\newfontsizeSUBSection}{\newfontsizeSUBSectionB}\selectfont}} %\large}} % formato da fonte
+
+\renewcommand{\subsubsection}{\@startsection{subsubsection}
+	{3} % nivel
+	{0em} % recuo
+	{18pt} % espaço antes
+	{6pt\setfonttimes\mdseries} % espaï¿œo apï¿œs, com reformataï¿œï¿œo.
+	{\setfonttimes\fontsize{\newfontsizeSUBSection}{\newfontsizeSUBSectionB}\selectfont}}%\normalsize}} % formato da fonte
+
+\newcommand{\anexos}{
+	\chapter*{\centering\setfonttimes\bfseries APÊNDICES}
+	\addcontentsline{toc}{chapter}{{Anexos}}
+	\renewcommand{\appendixname}{ANEXO}
+	\appendix
+	\newcounter{noAnexo}
+	\renewcommand{\thechapter}{\AlphAlph{\value{noAnexo}}.}
+	\setcounter{noAnexo}{1}
+}
+
+%%% Figura de fundo da capa:
+\newcommand\BackgroundPicture[2]{%
+  \setlength{\unitlength}{1pt}%
+  \put(0,\strip@pt\paperheight){%
+  \parbox[t][\paperheight]{\paperwidth}{%
+    \vfill
+    \centering\includegraphics[width=#2]{#1}
+    \vfill
+}}} 
+
+%%% Formatação do sumário
+\renewcommand*\l@chapter[2]{%
+  \ifnum \c@tocdepth >\m@ne
+    \addpenalty{-\@highpenalty}%
+    \vskip 1.0em \@plus\p@
+    \setlength\@tempdima{1.5em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      \leavevmode \bfseries
+      \advance\leftskip\@tempdima
+      \hskip -\leftskip
+      \uppercase{#1}\nobreak\hfil\dotfill \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+      \penalty\@highpenalty
+    \endgroup
+  \fi}
+%\renewcommand*\l@section{\@dottedtocline{1}{1.5em}{3.6em}}
+%\renewcommand*\l@subsection{\@dottedtocline{2}{1.5em}{3.6em}}
+%\renewcommand*\l@subsubsection{\@dottedtocline{3}{1.5em}{3.6em}}
+
+\renewcommand*\l@section{\@dottedtocline{1}{1.5em}{2.0em}}
+\renewcommand*\l@subsection{\@dottedtocline{2}{3.5em}{2.6em}}
+\renewcommand*\l@subsubsection{\@dottedtocline{3}{5.5em}{3.2em}}
+
+\renewcommand{\contentsname}{SUMMARY}
+\renewcommand{\listfigurename}{LIST OF FIGURES}
+\renewcommand{\listtablename}{LIST OF TABLES}
+\renewcommand{\bibname}{BIBLIOGRAPHY}
+
+%%% Sumário:
+\newcommand{\sumario}
+{   \pagenumbering{roman}
+	{\renewcommand{\@dotsep}{0.5}\parskip=0pt\setfonttimes\mdseries\scshape\tableofcontents}
+}
+
+%%% Lista de figuras:
+\newcommand{\listadefiguras}
+{
+	{\renewcommand{\@dotsep}{0.5}\parskip=0pt\listoffigures}
+}
+
+%%% Lista de tabelas:
+\newcommand{\listadetabelas}
+{
+	{\renewcommand{\@dotsep}{0.5}\parskip=0pt\listoftables}	
+}
+
+\makeatother
+ 
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Lengths
+%Alterado footskip para 1cm, top de 2 para 2.5, textwidth de 16.32 para 15.50 = 210(A4)-30(esq.)-25(dir.), e adicionado bottom.
+\geometry{headsep=.2in,footskip=1cm,top=2.5cm,textwidth=15.50cm,bottom=2.5cm}   
+\setlength{\evensidemargin}{-0.2cm}
+\setlength{\oddsidemargin}{0.8cm}
+\renewcommand{\baselinestretch}{1.2}
+%testar depois desse jeito
+%\geometry{verbose,a4paper,tmargin=3cm,bmargin=2cm,lmargin=3cm,rmargin=2cm,headsep=5mm,footskip=0cm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Macros
+\newcommand{\PreserveBacklash}[1]{\let\temp=\\#1\let\\=\temp}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Espaço entre parágrafos
+\parskip=6pt
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Red\'{e}finition de cleardoublepage pour que les pages vides s\'{e}parant
+% les chapitres soient vraiment vides 
+\makeatletter
+\color{black} %Para corrigir a incompatibilidade com o pacote algorithm2e.
+\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+ \hbox{}
+ \vspace*{\fill}% test \vspace{\fill}
+ \thispagestyle{empty}
+ \newpage
+ \if@twocolumn\hbox{}\newpage\fi\fi\fi}
+\makeatother
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%      CRIACAO DE AMBIENTES  (PROVA)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newmdenv[
+  topline=false,
+  bottomline=false,
+  rightline=false,
+  skipabove=\topsep,
+  skipbelow=2.5\topsep,
+  leftmargin=5pt,
+  rightmargin=0pt,
+  innertopmargin=2pt,
+  innerrightmargin=0pt,
+  innerbottommargin=0pt,
+  linewidth = 3pt,
+  linecolor=red!60!black!50,
+]{siderules}
+
+\renewenvironment{proof}{%
+
+% 
+\noindent $ \ $ \textbf{\textit{proof. }} \begin{siderules}}
+{%
+\hfill $\blacksquare$ \end{siderules}\ignorespacesafterend
+ 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

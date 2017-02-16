@@ -1,0 +1,1178 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass ft3unb
+\begin_preamble
+
+\end_preamble
+\use_default_options true
+\begin_modules
+theorems-ams-bytype
+theorems-chap-bytype
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\branch brief-definitions
+\selected 0
+\filename_suffix 0
+\color #faf0e6
+\end_branch
+\branch universal-algebra
+\selected 0
+\filename_suffix 0
+\color #faf0e6
+\end_branch
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes true
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\author 2090485794 "luis" 
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+Resumo Estendido em Língua Portuguesa
+\end_layout
+
+\begin_layout Standard
+O objetivo principal deste trabalho é contribuir para a compreensão e para
+ o avanço das técnicas de controle para robôs manipuladores 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+no contexto de aprimorar o estado-da-arte em robótica 
+\end_layout
+
+\end_inset
+
+a partir da exploração da álgebra de quatérnios duais.
+ O presente trabalho fornece soluções para uma série de problemas relevantes
+ e desafiadores para o controle cinemático de robôs manipuladores no espaço
+ de tarefas com ênfase na precisão, robustez, otimização e flexibilidade.
+ Estas características são essenciais para o desenvolvimento de ferramentas
+ que permitam robôs executarem tarefas sofisticadas em cenários cada vez
+ menos controlados.
+ 
+\end_layout
+
+\begin_layout Standard
+A contínua investigação e pesquisa nas áreas de controle, cibernética e
+ automação trouxeram o campo da robótica à beira de uma nova mudança de
+ paradigma.
+ O futuro da robótica está sendo estudado hoje e move-se em direção de capacitar
+ robôs para execução de tarefas mais complexas do que as puramente repetitivas
+ em linhas de montagem.
+ Desta forma, os robôs tendem a participar ativamente da vida cotidiana
+ dos seres humanos, a partir de uma interação mais fluída e robusta com
+ outros robôs e com seres humanos em ambientes menos restritos.
+\end_layout
+
+\begin_layout Standard
+Desde a revolução industrial no século 18 até os dia atuais, a relação humana
+ com as máquinas mudou profundamente e rapidamente.
+ Desde os primeiros robôs digitalmente operados e programáveis da Unimation
+ nos anos cinquenta até o estado-da-arte mais recente, a robótica desempenhou---
+e ainda desempenha---um papel significativo nesta mudança de atitude que
+ trouxe as máquinas para mais perto de seres humanos.
+ Com o avanço das técnicas de controle baseadas em Lyapunov, das teorias
+ de estimação baseadas em Kalman, e no desenvolvimento das técnicas de realiment
+ação e cibernética de Wiener, a robótica floresceu como uma ciência voltada
+ à compreensão e manipulação do mundo físico através de dispositivos mecânicos
+ baseados em computador
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+
+\change_deleted 2090485794 1470253777
+Esta c
+\change_inserted 2090485794 1470253809
+De acordo com a c
+\change_unchanged
+oncepção de robótica 
+\change_deleted 2090485794 1470253781
+foi introduzida por 
+\change_inserted 2090485794 1470253825
+apresentada por 
+\change_unchanged
+Thrun et al.
+ 
+\change_deleted 2090485794 1470253822
+em 
+\change_unchanged
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "BOOK:Thrun_Burgard_Fox:2005:PR:1121596"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Ainda há muito a ser feito em robótica e estamos muito longe do cenário
+ futurista idealizado por Karel 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+v{C}
+\end_layout
+
+\end_inset
+
+apek e Isaac Asimov
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+
+\series bold
+FROM THRUN: 
+\series default
+The term “robot” was invented in 1921 by the Czech novelist Karel Capek
+ [42], to describe a willing, intelligent and human-like machines that make
+ life pleasant by doing the type work we don’t like to do.
+ In the Fourties, Asimov coined the term “robotics” and postulated the famous
+ three laws of robotics.
+ 
+\end_layout
+
+\end_inset
+
+O termo do 
+\begin_inset Quotes eld
+\end_inset
+
+robô
+\begin_inset Quotes erd
+\end_inset
+
+ (do inglês,
+\emph on
+ Robot
+\emph default
+) foi utilizado pela primeira vez na peça chamada 
+\begin_inset Quotes eld
+\end_inset
+
+Robôs Universais de Rossum--RUR
+\begin_inset Quotes erd
+\end_inset
+
+ (do inglês, 
+\emph on
+Rossum's Universal Robots
+\emph default
+) escrita pelo autor Tcheco Karel 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+v{C}
+\end_layout
+
+\end_inset
+
+apek no qual ele descreve máquinas inteligentes que se assemelham a seres
+ humanos e executam tarefas complexas e indesejáveis para seres humanos.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The play was about a society that became enslaved by the robots that once
+ served them.
+ 
+\end_layout
+
+\end_inset
+
+Na década de quarenta, Asimov cunhou o termo 
+\begin_inset Quotes eld
+\end_inset
+
+robótica
+\begin_inset Quotes erd
+\end_inset
+
+ (do inglês, 
+\emph on
+robotics
+\emph default
+) e postulou as famosas três leis da robótica.
+\end_layout
+
+\end_inset
+
+, mas a robótica é um campo com um enorme potencial transformador e capaz
+ de mudar a forma como interagimos com o mundo e com nós mesmos.
+ 
+\change_deleted 2090485794 1470253529
+Devido as mudanças de paradigmas possíveis a partir da robótica, esta
+\change_inserted 2090485794 1470253532
+Apesar de ser um campo relativamente novo de estudo, a robótica
+\change_unchanged
+ tornou-se um campo inter e multidisciplinar de estudo, estimulando pesquisas
+ e atraindo engenheiros
+\change_inserted 2090485794 1470253551
+ de diversas áreas
+\change_unchanged
+---
+\change_deleted 2090485794 1470253555
+de
+\change_inserted 2090485794 1470253580
+como, por exemplo,
+\change_unchanged
+ controle, automação, mecânica, informática, elétrica, cibernética
+\change_deleted 2090485794 1470253572
+, e entre outros engenheiros
+\change_unchanged
+---cientistas, matemáticos , médicos, psicólogos, entre outros.
+ 
+\change_deleted 2090485794 1470253623
+Apesar de ser um campo relativamente novo de estudo, a robótica e os mais
+ diferentes r
+\change_inserted 2090485794 1470253622
+R
+\change_unchanged
+obôs estão atualmente presentes em 
+\change_deleted 2090485794 1470253637
+vários
+\change_inserted 2090485794 1470253638
+diversos
+\change_unchanged
+ aspectos da construção da vida moderna, seja na fabricação industrial,
+ na robótica de serviços, em carros autonomamente dirigidos, em braços manipulad
+ores que auxiliam cirurgiões e outros dispositivos referentes a robótica
+ médica, ou em plataformas robóticas para exploração aquática e planetária.
+ 
+\end_layout
+
+\begin_layout Standard
+Não obstante, a maioria das aplicações que envolvem robôs---particularmente,
+ em ambientes industriais---ainda 
+\change_inserted 2090485794 1470253658
+e
+\change_unchanged
+s
+\change_inserted 2090485794 1470253660
+t
+\change_unchanged
+ão usualmente limitadas pelas seguintes características: por segurança,
+ os robôs trabalham em ambientes isolados de humanos, eles operam em ambientes
+ que são bem estruturado
+\change_inserted 2090485794 1470253685
+s
+\change_unchanged
+ e totalmente conhecidos, e 
+\change_deleted 2090485794 1470253697
+os robôs 
+\change_unchanged
+são
+\change_inserted 2090485794 1470253698
+ ainda
+\change_unchanged
+ condicionados a execução de tarefas simples e repetitivas.
+\end_layout
+
+\begin_layout Standard
+Em contrapartida, espera-se que os robôs do amanhã sejam capazes de implementar
+ e executar tarefas em ambientes cada vez menos estruturados e controlados,
+ nos quais robustez e flexibilidade tornam-se características primordiais
+ para o sucesso de cada operação.
+ Neste cenário, espera-se que os robôs compreendam mudanças de ambientes
+ e diferentes contextos, naveguem em ambientes povoados e não estruturados,
+ e trabalhem com outros robôs e com os seres humanos.
+ Investigando com maiores detalhes estes problemas, observa-se que mesmo
+ problemas aparentemente simples como, por exemplo, a interpretação e medição
+ de distância a partir de um sensor a laser, tornam-se bastante desafiadores
+ 
+\change_deleted 2090485794 1470253881
+e difíceis 
+\change_unchanged
+devido à complexidade de 
+\change_inserted 2090485794 1470253915
+lidarmos com 
+\change_unchanged
+ambientes realistas e as incertezas inerentes a este contexto.
+ Estas incertezas são propagadas para problemas de decisão, planejamento
+ e controle---exigindo respostas robustas para cada problema.
+ 
+\end_layout
+
+\begin_layout Standard
+Esta tese foi motivada pelos novos desafios que surgem a partir do cenário
+ idealizado acima e pela quantidade considerável de trabalho ainda a ser
+ feito para alcançarmos tais características e funcionalidades.
+ A tese foi desenvolvida no 
+\change_deleted 2090485794 1470253934
+no 
+\change_unchanged
+contexto do projeto 
+\emph on
+Towards Robust Robotic Manufacturing 
+\emph default
+do grupo 
+\change_deleted 2090485794 1470253938
+robótico 
+\change_unchanged
+
+\emph on
+Model-based Embedded and Robotic Systems group 
+\emph default
+(MERS) do laboratório 
+\emph on
+Computer Science and Artificial Intelligence Laboratory
+\emph default
+ (CSAIL) da universidade Massachusetts Institute of Technology (MIT) em
+ parceria com o grupo de pesquisa 
+\emph on
+Mechatronics, Control, and Robotics research group
+\emph default
+ (MACRO) da Universidade Federal de Minas Gerais (UFMG) e do Laboratório
+ de Automação e Robótica (LARA) da Universidade de Brasília.
+ 
+\end_layout
+
+\begin_layout Standard
+O projeto financiado pela Boeing, e a parceria pelo CNPq-MIT MISTI 
+\emph on
+Global Seed Funds
+\emph default
+, destina-se a promoção do estado-da-arte em robótica e o desenvolvimento
+ de ferramentas necessárias para o florescer de uma nova robótica, a robótica
+ do amanhã.
+ Neste contexto, espera-se que equipes de robôs atu
+\change_deleted 2090485794 1470253957
+a
+\change_inserted 2090485794 1470253957
+e
+\change_unchanged
+m como pares colaborando a fim de alavancar suas diferentes habilidades
+ na realização de tarefas complexas e elaboradas de forma robusta e eficiente
+ em ambientes de trabalho semi-estruturados e, da mesma forma, sejam capazes
+ de executar tarefas com auxílio humano.
+ 
+\end_layout
+
+\begin_layout Standard
+Dentre as múltiplas dimensões deste projeto, o objetivo deste trabalho é
+ contribuir para o entendimento e para o avanço das técnicas de controle
+ para robôs manipuladores no sentido de robustez, otimização e flexibilidade---r
+ecursos essenciais para o nível esperado e necessário de desempenho e de
+ autonomia robótica.
+ Devido 
+\change_deleted 2090485794 1470254001
+a
+\change_inserted 2090485794 1470254001
+à
+\change_unchanged
+ necessidade de robôs operarem em diferentes condições e ambientes, e executarem
+ tarefas complexas e variantes no tempo, as estratégias de controle também
+ devem permitir reatividade.
+ Assim, o presente trabalho foca-se em estratégias de controle cinemáticas
+ 
+\change_deleted 2090485794 1470254022
+em 
+\change_unchanged
+no espaço de trabalho.
+ 
+\change_deleted 2090485794 1470254374
+Além disso, devido às incertezas do ambiente e das tarefas, esta tese centrou-se
+ no estudo e no projeto de execução de tarefas de maneira precisa, robusta,
+ ótima e flexível.
+ 
+\change_unchanged
+Neste ponto, é essencial ressaltar que este nível de manipulação robótica
+ ainda é um grande desafio e essencial para o florescer do cenário robótico
+ idealizado.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted 2090485794 1470254412
+A fim de estudar e projetar 
+\change_deleted 2090485794 1470254414
+Além disso, para lidar com os desafios decorrentes das 
+\change_unchanged
+técnicas de controle robusto, ótimo e 
+\change_deleted 2090485794 1470254422
+da 
+\change_inserted 2090485794 1470254430
+que permitam a 
+\change_unchanged
+flexibilização de tarefas para robôs manipuladores
+\change_deleted 2090485794 1470254469
+ no espaço de tarefas
+\change_unchanged
+, esta tese explora as vantagens d
+\change_inserted 2090485794 1470254444
+a
+\change_deleted 2090485794 1470254444
+e
+\change_unchanged
+ álgebra de quatérnios duais para modelar e controlar a cinemática acoplada,
+ rotação e translação, do robô manipulador
+\change_inserted 2090485794 1470254480
+ no espaço de tarefas
+\change_unchanged
+.
+ Neste sentido, 
+\change_inserted 2090485794 1470254510
+esta tese também pode ser vista como uma sequência do trabalho e da 
+\change_deleted 2090485794 1470254519
+seguindo os passos e continuando a história e o trabalho introduzido na
+ 
+\change_unchanged
+obra de Adorno 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2011_Adorno_THESIS"
+
+\end_inset
+
+
+\change_inserted 2090485794 1470254549
+ com referência a utilização da álgebra de quatérnios duais para a robótica
+\change_unchanged
+.
+ 
+\change_inserted 2090485794 1470254559
+De fato, 
+\change_deleted 2090485794 1470254559
+O
+\change_inserted 2090485794 1470254559
+o
+\change_unchanged
+ uso de quatérnios duais unitários em robótica pode ser rastread
+\change_deleted 2090485794 1470254564
+a
+\change_inserted 2090485794 1470254564
+o
+\change_unchanged
+ até as obras de 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "1994_Connolly_Pfeiffer_CDC,1991_Dooley_Mccarthy_ICRA,1993_Dooley_Mccarthy_ICRA,1997_Perrier_Dauchez_Pierrot_IROS"
+
+\end_inset
+
+, contudo apenas a partir do trabalho de Adorno uma estrutura completa para
+ modelagem cinemática de robôs por meio de quatérnios duais unitários foi
+ estabelecida e devidamente normalizad
+\change_inserted 2090485794 1470254578
+a
+\change_deleted 2090485794 1470254578
+o
+\change_unchanged
+.
+ Uma análise cuidadosa sobre as contribuições decorrentes do trabalho 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2011_Adorno_THESIS"
+
+\end_inset
+
+ lançam alguma luz sobre a mudança de paradigma promovida no sentido de
+ representação de corpos rígidos no contexto de robótica.
+ 
+\change_deleted 2090485794 1470254594
+Neste contexto
+\change_inserted 2090485794 1470254595
+Desta forma
+\change_unchanged
+, 
+\change_inserted 2090485794 1470254639
+este trabalho, além de lidar com 
+\change_deleted 2090485794 1470254628
+e divergindo dos 
+\change_inserted 2090485794 1470254630
+os 
+\change_unchanged
+desafios inerentes ao projeto 
+\emph on
+Towards Robust Robotic Manufacturing, 
+\change_deleted 2090485794 1470254635
+
+\emph default
+este trabalho 
+\change_unchanged
+também objetiva estabelecer as bases de controle na álgebra de quatérnios
+ duais e formalizar a teoria de controle na álgebra.
+ 
+\change_inserted 2090485794 1470254666
+Para tanto, esta tese também aborda e soluciona 
+\change_deleted 2090485794 1470254670
+Assim, também resolvemos 
+\change_unchanged
+problemas intrínsecos à álgebra de quatérnios dual e à estrutura cinemática
+ de robôs manipuladores---fornecendo ferramentas que permit
+\change_deleted 2090485794 1470254680
+e
+\change_inserted 2090485794 1470254680
+a
+\change_unchanged
+m tarefas complexas e sofisticadas 
+\change_deleted 2090485794 1470254685
+a 
+\change_unchanged
+ser
+\change_inserted 2090485794 1470254683
+em
+\change_unchanged
+ realizada
+\change_inserted 2090485794 1470254687
+s
+\change_unchanged
+ de forma robusta e eficiente.
+ 
+\end_layout
+
+\begin_layout Subsection*
+
+\series bold
+Contribuições
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted 2090485794 1470254747
+A partir do formalismo de quatérnios duais unitários, e
+\change_deleted 2090485794 1470254746
+E
+\change_unchanged
+sta tese apresenta soluções para uma série de problemas relevantes e difíceis
+ que surgem no campo de controle cinemático 
+\change_deleted 2090485794 1470254701
+de
+\change_inserted 2090485794 1470254701
+para
+\change_unchanged
+ robôs manipuladores
+\change_deleted 2090485794 1470254743
+ a partir do formalismo de quatérnios duais unitários
+\change_unchanged
+.
+ Particularmente nesta tese, estamos interessados em estudar e solucionar
+ 
+\change_deleted 2090485794 1470254805
+a
+\change_unchanged
+os desafios
+\change_deleted 2090485794 1470254795
+ acima
+\change_unchanged
+ mencionados 
+\change_inserted 2090485794 1470254800
+na seção anterior 
+\change_unchanged
+que desempenham um papel importante em direção de uma robótica industrial
+ robusta e o avanço de robôs de serviço.
+ Além disso, os aspectos teóricos e práticos da álgebra de quatérnios duais
+ são considerados e estudados em profundidade.
+ Assim, esta tese também produz resultados no sentido de sistematizar técnicas
+ de controle a partir da álgebra de quatérnios duais.
+ 
+\end_layout
+
+\begin_layout Standard
+Primeiramente, o capítulo 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "CHAPTER : FUNDAMENTALS"
+
+\end_inset
+
+ fornece ao leitor um prelúdio 
+\change_deleted 2090485794 1470254818
+antes 
+\change_unchanged
+das contribuições a fim de introduzir o leitor aos conceitos básicos e a
+ base teórica matemática sobre transformações rígidas do corpo, sobre a
+ álgebra de quatérnios e quatérnios duais, sobre a cinemática de braços
+ robóticos manipuladores, e a uma base da teoria de controle utilizada.
+ Este capítulo apresenta a estrutura necessária para entender os conceitos
+ propostos na tese e lança uma luz sobre a importância de uma representação
+ matemática adequada e as vantagens que derivam da utilização de quatérnios
+ duais unitários.
+\end_layout
+
+\begin_layout Standard
+Para além do capítulo de introdução e do capítulo de fundamentação, as principai
+s contribuições da tese e sua organização são descritas da seguinte forma:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent 
+\end_layout
+
+\end_inset
+
+
+\series bold
+Controle cinemático robusto no sentido 
+\begin_inset Formula $\mathbf{H_{\infty}}$
+\end_inset
+
+ baseado em quatérnios duais -
+\series default
+ 
+\begin_inset Formula $\quad$
+\end_inset
+
+À luz das aplicações práticas de robótica e motivado pelo problema de otimizar
+ o desempenho 
+\change_deleted 2090485794 1470254839
+e a performance 
+\change_unchanged
+do sistema em malha fechada, o Capítulo 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "CHAPTER:Hinf Control"
+
+\end_inset
+
+ investiga e defronta-se com a suscetibilidade de manipuladores robóticos
+ com respeito a erros de modelagem e incertezas, distúrbios exógenos e,
+ mais importante, apresenta soluções robustas com base na descrição e modelagem
+ explicita dos requisitos de performance como problemas de controle 
+\begin_inset Formula $H_{\infty}$
+\end_inset
+
+.
+ Os controladores cinemáticos propostos são 
+\change_deleted 2090485794 1470254887
+descritos
+\change_inserted 2090485794 1470254887
+baseados
+\change_unchanged
+ na álgebra de quatérnios duais e são derivados de forma 
+\change_inserted 2090485794 1470254933
+que o projeto de controle aborde 
+\change_deleted 2090485794 1470254919
+a abordarem 
+\change_unchanged
+explicitamente as diferentes fontes de incertezas e perturbações e a influência
+ destes sobre a cinemática do efetuador (rotação e translação) no sentido
+ 
+\begin_inset Formula $H_{\infty}$
+\end_inset
+
+.
+ A abordagem baseada na norma 
+\begin_inset Formula $H_{\infty}$
+\end_inset
+
+ possui a vantagem de 
+\change_deleted 2090485794 1470254958
+negligenciar 
+\change_inserted 2090485794 1470255005
+relaxar 
+\change_unchanged
+as exigências relativas à descrição e modelagem da distribuição estatística
+ dos ruídos---a representação destes é significantemente complexa de ser
+ caracterizada dentro de qualquer representação de movimentos de corpos
+ rígidos.
+ Usando a álgebra de quatérnios duais, adaptamos técnicas clássicas de controle
+ 
+\begin_inset Formula $H_{\infty}$
+\end_inset
+
+---válidas apenas para análise de perturbações aditivas---a fim de derivar
+ estratégias de controle 
+\begin_inset Formula $H_{\infty}$
+\end_inset
+
+ (de 
+\change_deleted 2090485794 1470255033
+ponto fixo
+\change_inserted 2090485794 1470255033
+regulação
+\change_unchanged
+ e de rastreamento) de forma fechada e de fácil implementação que também
+ incorporam requisitos de robustez, atenuação de perturbação, e propriedades
+ de desempenho, minimizando o esforço de controle exigido.
+ Assim, a partir dos critérios 
+\begin_inset Formula $H_{\infty}$
+\end_inset
+
+ baseados em quatérnios duais, obtemos uma vínculo intuitivo e elegante
+ entre o esforço de controle, os efeitos de desempenho sobre a trajetória
+ do efetuador e diferentes fontes de incertezas e perturbações.
+ A eficiência dos controladores propostos são avaliadas em cenários simulados
+ em Matlab e no ambiente de experimentação virtual V-REP (do inglês, 
+\emph on
+Virtual Robot Experimentation PLatform
+\emph default
+) da empresa Coppelia Robotics GmbH.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent 
+\end_layout
+
+\end_inset
+
+
+\series bold
+Rastreamento de trajetória ótimo baseado em quatérnios duais -
+\series default
+ 
+\begin_inset Formula $\quad$
+\end_inset
+
+
+\change_inserted 2090485794 1470255282
+A fim de capacitar o manipulador robótico para diferentes perfis de operação
+ e equilibrar de forma mais eficiente a precisão de manipulação com esforço
+ de controle, particularmente no contexto de robôs complacentes, 
+\change_deleted 2090485794 1470255286
+Para enfrentar o desafio de inerente ao requisito incremental de precisão
+ de manipulação no contexto de robôs complacentes e perfis de velocidade
+ reduzidos, 
+\change_unchanged
+o Capítulo 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "CHAPTER : OPTIMAL CONTROL"
+
+\end_inset
+
+ aborda o problema de projeto de controladores no espaço de tarefas de robô
+ manipuladores a partir de quatérnios duais unitários e no contexto da teoria
+ de controle ótimo.
+ Novas estratégias de controle no espaço de tarefas são propostas a a fim
+ de encontrar uma trajetória ótima para o efetuador no espaço de quatérnios
+ duais, fornecendo uma ferramenta para equilibrar de forma mais conveniente
+ o erro do efetuador com sua velocidade no espaço de operação.
+ O controlador ótimo estende os resultados dos controladores baseados na
+ álgebra de quatérnios duais propostos---compartilhando as vantagens de
+ inerentes da representação---e fornece ao projetista um conjunto mais intuitivo
+ de índices de performance, e amplia a gama de aplicações do formalismo
+ de quatérnios duais em robótica.
+ Em contraste a técnicas clássicas de controle ótimo, a otimização proposta
+ foca
+\change_deleted 2090485794 1470255351
+-se
+\change_unchanged
+ em variáveis do espaço de tarefas do manipulador, simplificando consideravelmen
+te a implementação do controlador.
+ Como consequência, objetivamos um controlador ótimo para a velocidade do
+ efetuador no espaço de tarefas.
+ Esta análise
+\change_inserted 2090485794 1470255503
+ é essencial
+\change_unchanged
+ ao lidarmos com tarefas avançadas de manipulação---como, por exemplo, a
+ manipulação em ambientes perigosos ou não estruturados e manipulação com
+ múltiplos braços---que exigem interação com maior precisão e segurança
+ em contraste com a velocidade de convergência.
+ Este é o caso por exemplo, da interação entre homem-robô na qual a velocidade
+ do efetuador influencia largamente a aceitação humana ao contato e reduz
+ o estresse e desconforto que surgem a partir da interação.
+ A velocidade controlada no espaço de tarefas também evita derrapagens e
+ sobrepassos causados ​​por grandes requisitos de acelerações nos controladores
+ de baixo nível do manipulador.
+ Por fim, a fim de ilustrar a eficiência e a confiabilidade dos critérios
+ ótimos propostos baseados em quatérnios duais, apresentamos um conjunto
+ de exemplos numéricos e simulações em diferentes cenários e avaliamos os
+ controladores experimentalmente em um manipulador complacente (Meka A2).
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent 
+\end_layout
+
+\end_inset
+
+
+\series bold
+Prevenção de singularidades cinemática 
+\change_deleted 2090485794 1470255523
+n
+\change_inserted 2090485794 1470255523
+pel
+\change_unchanged
+o critério 
+\begin_inset Formula $\mathbf{H_{\infty}}$
+\end_inset
+
+ descrito em quatérnios duais -
+\series default
+ 
+\begin_inset Formula $\quad$
+\end_inset
+
+A fim de assegurar capacidades de manipulação adequadas em toda a área de
+ trabalho do efetudor, o Capítulo 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "CHAPTER : SING_AVOID"
+
+\end_inset
+
+ investiga o problema de prevenção de singularidades de robôs manipuladores.
+ As singularidades desempenham um papel significativo na concepção e controle
+ de corpos rígidos, em particular, no contexto de robôs manipuladores.
+ A abordagem baseada em quatérnios duais unitários---de forma semelhante
+ ao grupo de quatérnios para rotação pura---oferece uma solução para o modelamen
+to cinemático completo acoplado (rotação mais translação) sem singularidades
+ de representação.
+ Não obstante, independentemente da representação movimento rígido, as tarefas
+ de manipulação a partir de um braço manipulador são susceptíveis a singularidad
+es cinemáticas onde configurações específicas das juntas tornam a cinemática
+ direta diferencial mal-posta o que implica consequentemente na perda de
+ um ou mais graus de liberdade.
+ O estudo e a prevenção de singularidades cinemáticas de um manipulador
+ é de grande importância uma vez que na vizinhança destas configurações
+ podem surgir vários problemas devido à perda de posto matricial da Jacobiana.
+ Contudo, dado que a maioria das soluções de prevenção de singularidades
+\change_inserted 2090485794 1470255554
+ cinemáticas
+\change_unchanged
+ na literatura assumem que o espaço de tarefas é representado por um espaço
+ Euclideano, nos focamos em fornecer ferramentas que possam ser utilizadas
+ e prevenir singularidades cinemáticas dentro espaço de quatérnios duais.
+ No caso de manipuladores redundantes, provamos que as técnicas existentes
+ com base no movimento no espaço nulo da Jacobiana (isto é, movimentos projetada
+s no seu espaço nulo) podem ser estendidos no formalismo de quatérnios duais
+ proposto e nas Jacobianas aqui derivadas e, no caso de manipuladores não-redund
+antes, propomos uma nova estratégia de prevenção de singularidades utilizando
+ critérios e o controlador 
+\begin_inset Formula $H_{\infty}$
+\end_inset
+
+ derivado na álgebra de quatérnios duais.
+ Assim, a solução proposta, além de ser adequada para o espaço de operação
+ não-Euclideano, regula explicitamente a compensação entre a exatidão do
+ rastreamento de tarefas e o esforço de prevenção de singularidades inevitáveis
+ (e para braços não-redundantes) com base na teoria 
+\begin_inset Formula $H_{\infty}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent 
+\end_layout
+
+\end_inset
+
+
+\series bold
+Estabilidade global robusta baseada em controle híbrido utilizando a álgebra
+ de quatérnios duais -
+\series default
+ 
+\begin_inset Formula $\quad$
+\end_inset
+
+As abordagens discutidas acima e as contribuições propostas nesta tese são
+ baseadas em quatérnios duais unitários para a representação acoplada e
+ compacta da cinemática de rotação e translação da movimentação do manipulador
+ sem singularidades de representação.
+ No entanto, qualquer representação adequada para movimento de corpos rígidos
+ apresenta uma obstrução topológica para a estabilização global por meio
+ de um controlador contínuo.
+ A representação por meio de quatérnios duais unitários não é uma exceção.
+ De fato, cada pose (orientação e translação) de um corpo rígido pode ser
+ representado por um par de quatérnios duais unitários antipodais o que
+ por sua vez causa o fenômeno conhecido como 
+\emph on
+unwinding
+\change_inserted 2090485794 1470255861
+
+\emph default
+---no qual um corpo rígido próximo à pose desejada pode convergir para o
+ ponto antipodal mais distante que por sua vez representa a mesma pose
+\change_unchanged
+.
+ Neste contexto e utilizando o formalismo de quatérnios duais unitários,
+ o Capítulo 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "CHAPTER:Hybrid Control"
+
+\end_inset
+
+ aborda o problema da estabilização global da pose de um corpo rígido.
+ Uma estratégia híbrida de controle é utilizada na derivação de um controlador
+ chaveado baseado em histerese de modo que a estabilidade assintótica global
+ do sistema em malha fechada é assegurada, e de tal forma que o controlador
+ seja robusto contra pequenas 
+\change_deleted 2090485794 1470255676
+pequenas 
+\change_unchanged
+perturbações arbitrárias.
+ O controlador resultante é descrito em termos de transformações de corpos
+ rígidos dentro da álgebra de quatérnios duais.
+ Ademais, utilizando simulações numéricas ilustramos os problemas decorrentes
+ de negligenciar a cobertura dupla---como, por exemplo, 
+\emph on
+unwinding 
+\emph default
+e vibrações indesejadas---e verificamos a eficácia do controlador proposto
+ no sentido de solucionar o problema de estabilização robusta global da
+ pose de um efetuador robótico.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent 
+\end_layout
+
+\end_inset
+
+
+\series bold
+Flexibilização de tarefas baseada na álgebra de quatérnios duais aplicada
+ para manipulação bimanual -
+\series default
+ 
+\begin_inset Formula $\quad$
+\end_inset
+
+Além de estudar o problema de controle cinemático no espaço de tarefas a
+ partir da álgebra de quatérnios duais no sentido de otimizar a trajetória
+ de uma tarefa e incrementar a robustez do manipulador quanto a incertezas,
+ a perturbações, as singularidades cinemáticas e, até mesmo, a obstruções
+ topológicas inerentes a representações de corpos rígidos, neste trabalho
+ investigamos também um novo paradigma de execução de tarefas robóticas.
+ O contexto deste novo paradigma surge da necessidade de um nível adicional
+ de reatividade para o manipulador em cenários dinâmicos.
+ Em tarefas modernas de manipulação, além de satisfazer uma trajetória também
+ estamos interessados em satisfazer restrições secundárias como, por exemplo,
+ evitar singularidades, limites de juntas, obstáculos, entre outras poses
+ indesejadas---usualmente, não conhecidas a priori.
+ Neste sentido, movimentos no espaço nulo da tarefa principal são primordiais
+ para a flexibilização e reatividade do manipulador quanto a cenários imprevisto
+s, permitindo a realização de movimentos nas juntas do manipulador serial
+ que não perturbem a trajetória principal do efetuador.
+ Não obstante, mesmo problemas aparentemente simples podem exigir todos
+ os graus de liberdade disponíveis no manipulador, não deixando espaço para
+ movimentos no espaço nulo.
+ Neste contexto, o capítulo 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "CHAPTER : SWITCHING FOR FLEXIBLE"
+
+\end_inset
+
+ apresenta uma nova estratégia que permite o alargamento do espaço nulo
+ sobre a Jacobiana da tarefa principal, relaxando especificações de controle
+ de acordo com a pertinência da pose do efetuador em regiões de interesse---nas
+ quais são necessários menos graus de liberdade.A fim de ilustrar a eficácia
+ da estratégia proposta referente à ampliação do espaço nulo permitindo
+ a execução de mais tarefas projetadas no espaço nulo da Jacobiana, consideramos
+ o contexto de manipulação cooperativa com dois braços.
+ O contexto de múltiplos braços manipuladores melhor ilustra a necessidade
+ de mais graus de liberdade para execução de tarefas, contudo a execução
+ de tarefas bimanual mantém o problema simples o suficiente para destacar
+ as vantagens da técnica proposta.
+ 
+\end_layout
+
+\begin_layout Standard
+Por fim, é essencial ressaltar que os resultados propostos são validados
+ por uma exploração matemática rigorosa a fim de garantir precisão e síntese
+ adequada para aplicações práticas.
+ Assim, o trabalho formaliza a teoria de controle na álgebra de quatérnios
+ duais e aprimora o estado-da-arte de controle para manipuladores---contribuindo
+ com o esforço contínuo para o desenvolvimento da robótica do futuro.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Section
+Manuscript Organization
+\end_layout
+
+\begin_layout Plain Layout
+The manuscript organization is summarized as follows:
+\end_layout
+
+\begin_layout Plain Layout
+In Chapter 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "CHAPTER:Hybrid Control"
+
+\end_inset
+
+, the topological obstruction from the unit dual quaternion representation
+ and natural to any parametrization of the special Euclidean group of rigid
+ transformations is deeply investigated and the hybrid controller that ensures
+ ensure robust global stability is presented, as well as the system observer
+ and tracking controller.
+ The overall closed loop exponential stability is also proved.
+\end_layout
+
+\begin_layout Plain Layout
+Chapter 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "CHAPTER:Hinf Control"
+
+\end_inset
+
+ presents the results for 
+\begin_inset Formula $H_{\infty}$
+\end_inset
+
+ control of robot manipulators satisfying robustness, energy, and performance
+ requirements with disturbance attenuation properties.
+ Both continuous and discrete/digital-time implementation are exploited.
+ The result is extended in Chapter 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "CHAPTER:Hinf Singularity Avoidance"
+
+\end_inset
+
+ to derive the new concept of 
+\begin_inset Formula $H_{\infty}$
+\end_inset
+
+ singularity avoidance strategy for inescapable singularities within the
+ unit dual quaternion framework.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+Chapter 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "CHAPTER:Conclusions"
+
+\end_inset
+
+ present the concluding remarks, the doctoral workflow for research activities
+ during the remaining of the doctoral work, and future works perspectives.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
