@@ -2,7 +2,7 @@
 This repository folder contains all templates developed by/for the LARA team
 Please update the description of each template within this readme.md file. 
 
-## ft4unb_layout_lyx.sh
+## ft4unb_layout_lyx (folder with files)
 * Author: 	Luis F C Figueredo	
 * Type: 	LyX Template
 * Requirement:	Latex + Lyx
