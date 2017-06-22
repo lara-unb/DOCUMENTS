@@ -28,7 +28,7 @@ varpack2="inkscape gimp kolourpaint4 xsane shotwell";
 varpack3="amarok brasero vlc pitivi openshot";
 # PACK 4: [ Document/tex editors ] 
 varpack4="kate anjuta geany kile texmaker lyx okular";
-varpack4extras="texlive texlive-publishers texlive-metapost texlive-science texlive-humanities texlive-generic-extra texlive-lang-arabic texlive-lang-cyrillic texlive-lang-greek texlive-lang-latin texlive-lang-portuguese texlive-fonts-extra texlive-fonts-extra-doc texlive-math-extra texlive-plain-extra texlive-latex-extra texlive-xetex texlive-latex3";
+varpack4extras="texlive texlive-publishers texlive-metapost texlive-science texlive-humanities texlive-generic-extra texlive-lang-arabic texlive-lang-cyrillic texlive-lang-greek texlive-lang-latin texlive-lang-portuguese texlive-fonts-extra texlive-fonts-extra-doc texlive-math-extra texlive-plain-extra texlive-latex-extra texlive-xetex texlive-latex3 texlive-publishers";
 # PACK 5: [ Internet apps ] 
 varpack5="chromium-browser konqueror filezilla skype adobe-flashplugin";
 # PACK 6: [ Python apps ] 
