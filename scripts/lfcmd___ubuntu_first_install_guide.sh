@@ -21,7 +21,7 @@
 #
 #==========================================================
 # PACK 1: [ System Wide ] 
-varpack1="synaptic terminator konsole rar unrar unity-tweak-tool virtualbox";
+varpack1="synaptic terminator konsole rar unrar unity-tweak-tool virtualbox arandr";
 # PACK 2: [ Image Editors ] 
 varpack2="inkscape gimp kolourpaint4 xsane shotwell";
 # PACK 3: [ Sound/Video Editors ] 
