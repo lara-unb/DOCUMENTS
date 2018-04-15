@@ -1,0 +1,31 @@
+--- bib2html.pl	2008-01-17 12:33:29.000000000 -0200
++++ bib2html_new.pl	2013-04-12 11:01:56.000000000 -0300
+@@ -24,6 +24,8 @@
+ # pay attention to warnings that you get!
+ # it's probably trying to tell you that you have missing fields
+ 
++# Modified for use in LARA's library catalog
++
+ use File::Basename;
+ use File::Copy;
+ # Many people don't have the Time::Zone package, so I'll remove the dependence
+@@ -667,12 +669,16 @@
+ 	last
+       };
+       /book/ && do {
++	$ret = '';
++	$ret .= '<b>'.htmlfm_title($beref->{"title"}).'</b>, ';
++	if (exists $beref->{$conf{'bibfield_extra_info'}}) {
++	  $ret .= '(<b>'.$beref->{$conf{'bibfield_extra_info'}}.')</b>';
++	}
+ 	if (exists $beref->{"author"}) {
+-	  $ret = htmlfm_author($beref->{"author"}).'. ';
++	  $ret .= htmlfm_author($beref->{"author"}).'. ';
+ 	} else {
+-	  $ret = htmlfm_author($beref->{"editor"}).', editors. ';
++	  $ret .= htmlfm_author($beref->{"editor"}).', editors. ';
+ 	}
+-	$ret .= '<i>'.htmlfm_title($beref->{"title"}).'</i>, ';
+ 	$ret .= 'pp. '.(htmlfm_pages($beref->{'pages'})). ', ' if (exists $beref->{'pages'});
+ 	if (exists $beref->{'volume'}) {
+ 	  $ret .= htmlfm_from_tex($beref->{'series'}).' ' if (exists $beref->{'series'});

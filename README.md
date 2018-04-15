@@ -3,6 +3,7 @@ This repository contains templates, manuals and scripts created at the Automatio
 
 * Current branches (IMPORTANT):
  * scripts - Contains only the scripts (folder) 
+ * library - Contains programs and instructions useful to LARA's librarians (folder)
  * templateTex - Contains only a LyX (and LaTeX) template for thesis/manuscripts of the Dept. of Electrical Engineering at UnB
 
 Please remember the branches if you just want to pull/download etc the template or the scripts 
